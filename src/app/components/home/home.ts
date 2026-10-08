@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./home.css']
 })
 export class HomeComponent {
-  name = 'June Romeo';
-  role = 'Frontend Developer';
-  bio = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti dolorum eum laudantium, unde voluptatem nemo non exercitationem neque ab delectus voluptas asperiores architecto ad eveniet mollitia provident harum pariatur porro.';
+  name = 'Engr. June Romeo L. Ongoco';
+  
+  bio = 'A Computer Engineering graduate dedicated to writing clean code, resolving complex technical issues, and maintaining structured, efficient systems.';
 }

@@ -1,9 +1,10 @@
+<!-- Hero Section (Your Original Layout) -->
 <section class="hero-section">
   <div class="hero-text-content">
-    <span class="greeting">Hi There, I'm</span>
+    <span class="greeting">Hello, I'm</span>
     <h1>{{ name }}</h1>
     <div class="role-divider"></div>
-    <h2>{{ role }}</h2>
+    
     <p>{{ bio }}</p>
     
     <div class="hero-buttons">
@@ -15,8 +16,68 @@
     <div class="circle-profile-wrapper">
       <div class="outer-ring"></div>
       <div class="profile-circle">
-        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&auto=format&fit=crop&q=80" alt="Profile Picture" />
+        <img src="profile.jpg" alt="Dezven Profile Picture">
       </div>
     </div>
   </div>
+</section>
+
+<!-- About Me Section (Scrollable Below) -->
+<section id="about" class="content-section about-section">
+  <div class="section-header">
+    <h2>About Me</h2>
+    <div class="role-divider"></div>
+  </div>
+  <div class="about-content">
+
+    <p>
+      I am a dedicated software developer specializing in building modern, scalable, and responsive web applications. 
+      With a strong foundation in frontend engineering, I enjoy turning complex problems into intuitive, elegant, and user-centered digital experiences.
+    </p>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+<!-- Education Section -->
+<section id="education" class="content-section education-section">
+  <div class="section-header">
+    <h2>Education</h2>
+    <div class="role-divider"></div>
+  </div>
+
+  <div class="education-container">
+    <!-- Card 1: College -->
+    <div class="edu-card">
+      <div class="edu-text">
+        <h3>Bachelor of Science in Computer Engineering</h3>
+        <span class="edu-school">De La Salle Araneta University</span>
+        <span class="edu-year">2022 &ndash; 2026</span>
+        <p>Focused on hardware-software integration, embedded systems, digital logic design, advanced programming, and modern software architecture.</p>
+      </div>
+      <div class="edu-image-container">
+        <img src="dlsau.png" alt="DLSAU Logo" class="edu-logo">
+      </div>
+    </div>
+
+    <!-- Card 2: Senior High School -->
+    <div class="edu-card">
+      <div class="edu-text">
+        <h3>Senior High School &mdash; Information and Communications Technology (ICT) Strand</h3>
+        <span class="edu-school">Informatics College Manila</span>
+        <span class="edu-year">2020 &ndash; 2021</span>
+        <p>Learned foundational web design, software tools, computer systems, and core IT communication skills.</p>
+      </div>
+      <div class="edu-image-container">
+        <img src="informatics.jpg" alt="Informatics College Logo" class="edu-logo">
+      </div>
+    </div>
+  </div>
+
 </section>

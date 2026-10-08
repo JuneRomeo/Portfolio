@@ -3,7 +3,7 @@
   <nav class="nav-links">
     <button [class.active]="activeTab === 'home'" (click)="setTab('home')">Home</button>
     <button [class.active]="activeTab === 'experience'" (click)="setTab('experience')">Experience</button>
-    <button [class.active]="activeTab === 'portfolio'" (click)="setTab('portfolio')">Portfolio</button>
+    <button [class.active]="activeTab === 'projects'" (click)="setTab('projects')">Projects</button>
     <button [class.active]="activeTab === 'contact'" (click)="setTab('contact')">Contact Us</button>
   </nav>
 </header>
@@ -11,6 +11,6 @@
 <main class="main-container">
   <app-home *ngIf="activeTab === 'home'"></app-home>
   <app-experience *ngIf="activeTab === 'experience'"></app-experience>
-  <app-projects *ngIf="activeTab === 'portfolio'"></app-projects>
+  <app-projects *ngIf="activeTab === 'projects'"></app-projects>
   <app-contact *ngIf="activeTab === 'contact'"></app-contact>
 </main>

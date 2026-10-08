@@ -19,9 +19,9 @@ import { ContactComponent } from './components/contact/contact';
   styleUrls: ['./app.css']
 })
 export class AppComponent {
-  activeTab: 'home' | 'experience' | 'portfolio' | 'contact' = 'home';
+  activeTab: 'home' | 'experience' | 'projects' | 'contact' = 'home';
 
-  setTab(tab: 'home' | 'experience' | 'portfolio' | 'contact') {
+  setTab(tab: 'home' | 'experience' | 'projects' | 'contact') {
     this.activeTab = tab;
   }
 }

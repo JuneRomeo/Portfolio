@@ -1,3 +1,8 @@
+/* Enable smooth scrolling for anchor links */
+html {
+  scroll-behavior: smooth;
+}
+
 .hero-section {
   display: flex;
   align-items: center;
@@ -15,21 +20,22 @@
 }
 
 .greeting {
-  font-size: 1.15rem;
+  font-size: 1.30rem;
   font-weight: 500;
   color: #333;
 }
 
 .hero-text-content h1 {
-  font-size: 3.5rem;
+  font-size: 3rem;
   font-weight: 800;
   color: #111;
   margin: 0.2rem 0;
   line-height: 1.1;
+  white-space: nowrap;
 }
 
 .role-divider {
-  width: 80px;
+  width: 150px;
   height: 3px;
   background-color: #ff5722;
   margin: 0.8rem 0;
@@ -43,7 +49,7 @@
 }
 
 .hero-text-content p {
-  font-size: 0.95rem;
+  font-size: 1.15rem;
   color: #666;
   line-height: 1.6;
   margin-bottom: 2rem;
@@ -74,7 +80,7 @@
   align-items: center;
   position: relative;
   min-height: 480px;
-  margin-right: 10rem; /* Keeps your chosen left-shifted position */
+  margin-right: 10px;
 }
 
 .circle-profile-wrapper {
@@ -125,12 +131,137 @@
   object-position: top center;
 }
 
+/* --- Scrollable Sections (About & Education) --- */
+.content-section {
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem 6%;
+  border-top: 1px solid #eaeaea;
+}
+
+.about-section {
+  background-color: #fafafa;
+}
+
+.education-section {
+  background-color: #ffffff;
+}
+
+.section-header h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #111;
+}
+
+.about-content {
+  margin-top: 1.5rem;
+  max-width: 800px;
+}
+
+.about-content p {
+  font-size: 1.15rem;
+  color: #555;
+  line-height: 1.8;
+}
+
+.education-grid {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.edu-card {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  border-left: 4px solid #ff5722;
+}
+
+.edu-card h3 {
+  font-size: 1.25rem;
+  color: #111;
+  margin-bottom: 0.5rem;
+}
+
+.edu-school {
+  display: block;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 0.2rem;
+}
+
+.edu-year {
+  display: block;
+  font-size: 0.85rem;
+  color: #ff5722;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.edu-card p {
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.edu-card-content {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.edu-text {
+  flex: 1;
+}
+
+/* Shrunk right-side image container */
+.edu-card {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  background: #ffffff;
+  padding: 2rem 2.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  border-left: 4px solid #ff5722;
+  gap: 2rem;
+}
+
+.edu-text {
+  flex: 1;
+}
+
+.edu-card .edu-image-container {
+  flex-shrink: 0;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edu-card .edu-image-container img.edu-logo {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+}
+
 /* Responsive layout adjustments for smaller viewports */
 @media (max-width: 1024px) {
   .hero-section {
     flex-direction: column-reverse;
     text-align: center;
     padding: 3rem 1.5rem;
+    min-height: auto;
+  }
+  .hero-text-content h1 {
+    white-space: normal;
   }
   .hero-image-container {
     justify-content: center;
@@ -148,4 +279,22 @@
     width: 280px;
     height: 280px;
   }
+  .content-section {
+    min-height: auto;
+    padding: 3rem 1.5rem;
+  }
+    .edu-card {
+    position: relative;
+    padding-right: 120px; /* Leaves space for the image so text doesn't overlap */
+  }
+
+  img.edu-logo {
+    position: absolute;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 80px !important;
+    height: auto !important;
+    object-fit: contain;
+  }
+  
 }
