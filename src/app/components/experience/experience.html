@@ -1,0 +1,35 @@
+<section class="experience-section">
+  <h2>Experience & Certifications</h2>
+  
+  <div class="content-container">
+    <!-- Work History Group -->
+    <div class="section-group">
+      <h3>Work History</h3>
+      <div class="timeline">
+        <div class="card" *ngFor="let exp of experiences">
+          <div class="card-header">
+            <h4>{{ exp.role }}</h4>
+            <span class="badge">{{ exp.period }}</span>
+          </div>
+          <p class="subtitle"><strong>{{ exp.company }}</strong></p>
+          <p class="desc">{{ exp.description }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Certifications Group -->
+    <div class="section-group">
+      <h3>Certifications</h3>
+      <div class="timeline">
+        <div class="card" *ngFor="let cert of certifications">
+          <div class="card-header">
+            <h4>{{ cert.title }}</h4>
+            <span class="badge date">{{ cert.date }}</span>
+          </div>
+          <p class="subtitle">Issued by: <strong>{{ cert.issuer }}</strong></p>
+          <p class="desc">{{ cert.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

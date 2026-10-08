@@ -1,12 +1,27 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HomeComponent } from './components/home/home';
+import { ExperienceComponent } from './components/experience/experience';
+import { ProjectsComponent } from './components/projects/projects';
+import { ContactComponent } from './components/contact/contact';
 
 @Component({
-  imports: [RouterOutlet],
   selector: 'app-root',
-  styleUrl: './app.css',
+  standalone: true,
+  imports: [
+    CommonModule, 
+    HomeComponent, 
+    ExperienceComponent, 
+    ProjectsComponent, 
+    ContactComponent
+  ],
   templateUrl: './app.html',
+  styleUrls: ['./app.css']
 })
-export class App {
-  protected readonly title = signal('portfolio');
+export class AppComponent {
+  activeTab: 'home' | 'experience' | 'portfolio' | 'contact' = 'home';
+
+  setTab(tab: 'home' | 'experience' | 'portfolio' | 'contact') {
+    this.activeTab = tab;
+  }
 }

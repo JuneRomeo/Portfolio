@@ -1,0 +1,151 @@
+.hero-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: calc(88vh - 70px);
+  padding: 2rem 2% 2rem 6%;
+  background-color: #ffffff;
+  overflow: hidden;
+  gap: 2rem;
+}
+
+.hero-text-content {
+  flex: 1;
+  max-width: 520px;
+}
+
+.greeting {
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.hero-text-content h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: #111;
+  margin: 0.2rem 0;
+  line-height: 1.1;
+}
+
+.role-divider {
+  width: 80px;
+  height: 3px;
+  background-color: #ff5722;
+  margin: 0.8rem 0;
+}
+
+.hero-text-content h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 1.2rem;
+}
+
+.hero-text-content p {
+  font-size: 0.95rem;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.btn-orange {
+  background-color: #ff5722;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 2.2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(255, 87, 34, 0.3);
+  transition: opacity 0.2s;
+}
+
+.btn-orange:hover {
+  opacity: 0.88;
+}
+
+/* Right-side circular image container shifted left */
+.hero-image-container {
+  flex: 1.2;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+  min-height: 480px;
+  margin-right: 10rem; /* Keeps your chosen left-shifted position */
+}
+
+.circle-profile-wrapper {
+  position: relative;
+  width: 420px;
+  height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Outer decorative circular ring border */
+.outer-ring {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 4px dashed #ff5722;
+  animation: rotateRing 30s linear infinite;
+  opacity: 0.6;
+}
+
+@keyframes rotateRing {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Main circular profile image frame */
+.profile-circle {
+  width: 370px;
+  height: 370px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 8px solid #fdfdfd;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+  background-color: #f0f0f0;
+  z-index: 2;
+}
+
+.profile-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+/* Responsive layout adjustments for smaller viewports */
+@media (max-width: 1024px) {
+  .hero-section {
+    flex-direction: column-reverse;
+    text-align: center;
+    padding: 3rem 1.5rem;
+  }
+  .hero-image-container {
+    justify-content: center;
+    min-height: 350px;
+    margin-right: 0;
+  }
+  .role-divider {
+    margin: 0.8rem auto;
+  }
+  .circle-profile-wrapper {
+    width: 320px;
+    height: 320px;
+  }
+  .profile-circle {
+    width: 280px;
+    height: 280px;
+  }
+}
