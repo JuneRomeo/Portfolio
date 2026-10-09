@@ -8,7 +8,7 @@ html {
   align-items: center;
   justify-content: space-between;
   min-height: calc(88vh - 70px);
-  padding: 2rem 2% 2rem 6%;
+  padding: 2rem 2% 2rem 10%; /* Increased left padding from 6% to 10% to shift text right */
   background-color: #ffffff;
   overflow: hidden;
   gap: 2rem;
@@ -72,15 +72,15 @@ html {
   opacity: 0.88;
 }
 
-/* Right-side circular image container shifted left */
+/* Right-side circular image container */
 .hero-image-container {
-  flex: 1.2;
+  flex: 1;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-end; /* Changes alignment from center to the right */
   align-items: center;
   position: relative;
   min-height: 480px;
-  margin-right: 10px;
+  margin-right: 10rem;/* margin-right can be removed or set to 0 */
 }
 
 .circle-profile-wrapper {
@@ -271,6 +271,7 @@ html {
   .circle-profile-wrapper {
     width: 320px;
     height: 320px;
+    /* If you wanted to nudge the mobile image specifically, you could add margin-left here */
   }
   .profile-circle {
     width: 280px;

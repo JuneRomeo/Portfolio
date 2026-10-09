@@ -22,14 +22,14 @@ export class ExperienceComponent {
     {
       title: 'Scrum Fundamentals Certified (SFC)',
       issuer: 'Scrumstudy',
-      date: '2025',
+      date: '2026',
       description: 'Gained foundational knowledge of Scrum framework principles, team roles, and agile project management methodologies. (Credential ID: 1194728)'
     },
     {
-      title: 'Modern JavaScript & TypeScript',
-      issuer: 'Udemy',
-      date: '2024',
-      description: 'Comprehensive study of ES6+ features, asynchronous JavaScript, and static typing with TypeScript.'
+      title: 'EF SET English Certificate 73/100 (C2 Proficient)',
+      issuer: 'EF SET',
+      date: '2026',
+      description: 'Demonstrated advanced proficiency in English language skills, including grammar, vocabulary, and communication.'
     }
   ];
 

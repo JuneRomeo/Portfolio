@@ -11,18 +11,18 @@ import { CommonModule } from '@angular/common';
 export class ProjectsComponent {
   projects = [
     {
-      title: 'Angular Portfolio',
+      title: 'My Portfolio Website',
       description: 'A personal portfolio web application built with Angular and GitHub Pages.',
       tech: ['Angular', 'TypeScript', 'CSS']
     },
     {
-      title: 'E-Commerce Dashboard',
-      description: 'Administrative dashboard featuring data visualizations and user state handling.',
+      title: 'title',
+      description: 'desc.',
       tech: ['Angular', 'RxJS', 'Tailwind CSS']
     },
     {
-      title: 'Task Manager App',
-      description: 'Productivity application for organizing daily tasks with local storage persistence.',
+      title: 'title',
+      description: 'desc.',
       tech: ['TypeScript', 'HTML5', 'CSS3']
     }
   ];

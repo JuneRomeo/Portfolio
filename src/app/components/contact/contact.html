@@ -1,32 +1,56 @@
-<section class="contact-section">
-  <h2>Get In Touch</h2>
-  <p class="contact-subtitle">Have a question or want to work together? Drop me a message!</p>
-
-  <div class="contact-container" *ngIf="!submitted; else successMessage">
-    <form (ngSubmit)="onSubmit()" class="contact-form">
-      <div class="form-group">
-        <label for="name">Your Name</label>
-        <input type="text" id="name" [(ngModel)]="formData.name" name="name" required placeholder="John Doe">
-      </div>
-
-      <div class="form-group">
-        <label for="email">Your Email</label>
-        <input type="email" id="email" [(ngModel)]="formData.email" name="email" required placeholder="john@example.com">
-      </div>
-
-      <div class="form-group">
-        <label for="message">Your Message</label>
-        <textarea id="message" [(ngModel)]="formData.message" name="message" rows="5" required placeholder="Write your message here..."></textarea>
-      </div>
-
-      <button type="submit" class="submit-btn">Send Message</button>
-    </form>
+<section id="contact" class="content-section contact-section">
+  <div class="section-header">
+    <h2>Get In Touch</h2>
+    <div class="role-divider"></div>
   </div>
 
-  <ng-template #successMessage>
-    <div class="success-box">
-      <h3>Thank you, {{ formData.name }}!</h3>
-      <p>Your message has been received successfully. I will get back to you soon.</p>
+  <div class="contact-container">
+    <!-- Left Column: Profile Picture & Social Icons -->
+    <div class="contact-left">
+      <div class="contact-profile-circle">
+        <img src="profile.jpg" alt="June Romeo Profile Picture">
+      </div>
+      <p class="contact-tagline">Let's connect and build something amazing together.</p>
+      
+      <div class="social-icons-row">
+        <!-- GitHub Icon -->
+        <a href="https://github.com/juneromeo" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="GitHub">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+        </a>
+        <!-- LinkedIn Icon -->
+        <a href="https://www.linkedin.com/in/june-romeo-ongoco-912543367/?isSelfProfile=true" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="LinkedIn">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+        </a>
+        <!-- Email Icon -->
+        <a href="mailto:juneromeo@example.com" class="social-icon" aria-label="Email">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        </a>
+      </div>
     </div>
-  </ng-template>
+
+    <!-- Right Column: Reactive Contact Form -->
+    <div class="contact-right">
+      <form class="contact-form" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+        
+        <div class="form-group">
+          <label for="name">Your Name</label>
+          <input type="text" id="name" formControlName="name" placeholder="Enter your name">
+        </div>
+
+        <div class="form-group">
+          <label for="email">Your Email</label>
+          <input type="email" id="email" formControlName="email" placeholder="Enter your email">
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" formControlName="message" rows="5" placeholder="Write your message here..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-orange" [disabled]="isSubmitting">
+          {{ isSubmitting ? 'Sending...' : 'Send Message' }}
+        </button>
+      </form>
+    </div>
+  </div>
 </section>
