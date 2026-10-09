@@ -7,7 +7,7 @@
       <h3>Work History</h3>
       <div class="timeline">
         <div class="card" *ngFor="let exp of experiences">
-          <div class="card-header">
+          <div class="card-header org-school-row">
             <h4>{{ exp.role }}</h4>
             <span class="badge">{{ exp.period }}</span>
           </div>
@@ -17,14 +17,96 @@
       </div>
     </div>
 
+    <!-- Organization Experience Group -->
+    <div class="section-group">
+      <h3>Organization Experience</h3>
+      <div class="timeline">
+        
+        <!-- Card 1: La Salle Araneta -->
+        <div class="card">
+          <div class="card-content-wrapper">
+            
+            <!-- School Header with Badge and Underline -->
+            <div class="card-header org-school-row">
+              <h4 class="org-school-title">La Salle Araneta Computer Engineering Society</h4>
+              <span class="badge">2022 &dash; 2026</span>
+            </div>
+
+            <!-- Role 1 -->
+            <div class="org-role-block">
+              <div class="card-header">
+                <h4>Seminar Organizer</h4>
+                <span class="badge">2025</span>
+              </div>
+              <ul class="desc-list">
+                  <li>Spearheaded the planning and execution of a department-wide seminar, collaborating closely with faculty, the dean, and technical personnel.</li>
+                  <li>Supervised the content and quality assurance of all seminar publications and promotional collateral.</li>
+                  <li>Managed event finances, including comprehensive budgeting and post-event financial auditing.</li>
+                  <li>Secured a qualified guest speaker through targeted proposal drafting and stakeholder approval meetings.</li>
+              </ul>
+            </div>
+
+            <!-- Role 2 -->
+            <div class="org-role-block">
+              <div class="card-header">
+                <h4>Auditor</h4>
+                <span class="badge">2024 &dash; 2025</span>
+              </div>
+              <ul class="desc-list">
+                  <li>Participated in planning meetings with officers and contributed to the development of the annual organizational calendar.</li>
+                  <li>Assisted with event documentation and compliance preparation for organizational activities.</li>
+              </ul>
+            </div>
+
+            <!-- Role 3 -->
+            <div class="org-role-block">
+              <div class="card-header">
+                <h4>2nd Year Representative</h4>
+                <span class="badge">2023 &dash; 2024</span>
+              </div>
+              <ul class="desc-list">
+                <li>Served as the primary liaison between the 2nd-year student body and organization leadership.</li>
+                <li>Represented the 2nd-year cohort in planning sessions, assemblies, and communication channels.</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Card 2: Other Organization / Institute -->
+        <div class="card second-org-card">
+          <div class="card-content-wrapper">
+            
+            <!-- Other School Header with Badge and Underline -->
+            <div class="card-header org-school-row">
+              <h4 class="org-school-title">Institute of Computer Engineers of the Philippines - Student Edition - NCR </h4>
+              <span class="badge">2022 &dash; 2026</span>
+            </div>
+
+            <div class="org-role-block">
+              <div class="card-header">
+                <h4>Member</h4>
+              </div>
+              <ul class="desc-list">
+                <li>Engaged in regional and national conventions, expanding professional networks with fellow computer engineering students</li>
+                <li>Participated in student-led tech workshops and hardware-software integration symposiums</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+    
     <!-- Certifications Group -->
     <div class="section-group">
       <h3>Certifications</h3>
       <div class="timeline">
         <div class="card" *ngFor="let cert of certifications">
-          <div class="card-header">
+          <div class="card-header org-school-row">
             <h4>{{ cert.title }}</h4>
-            <span class="badge date">{{ cert.date }}</span>
+            <span class="badge">{{ cert.date }}</span>
           </div>
           <p class="subtitle">Issued by: <strong>{{ cert.issuer }}</strong></p>
           <p class="desc">{{ cert.description }}</p>
@@ -32,4 +114,26 @@
       </div>
     </div>
   </div>
+
+
+<!-- Seminars Group -->
+    <div class="section-group">
+      <h3>Seminars Attended</h3>
+      <div class="timeline">
+        <div class="card" *ngFor="let sem of seminars">
+          <div class="card-header org-school-row">
+            <h4>{{ sem.title }}</h4>
+            <span class="badge">{{ sem.date }}</span>
+          </div>
+          <p class="subtitle"><strong>{{ sem.issuer }}</strong></p>
+          <p class="desc">{{ sem.description }}</p>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
 </section>
+

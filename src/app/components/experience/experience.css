@@ -28,7 +28,7 @@
 .timeline {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: .75rem;
 }
 
 .card {
@@ -73,7 +73,7 @@
 }
 
 .subtitle {
-  color: #555;
+  color: #111;
   font-size: 0.95rem;
   margin-bottom: 0.5rem;
 }
@@ -82,5 +82,51 @@
   color: #666;
   font-size: 0.9rem;
   line-height: 1.5;
+  margin: 0;
+}
+
+/* --- Added Styles for Grouped Organization Cards --- */
+.card-content-wrapper {
+  width: 100%;
+}
+
+.org-school-heading {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #444;
+  margin-top: 0;           /* Ensures no extra spacing at the top */
+  margin-bottom: 0.75rem;  /* Controls the gap between the school title and the first role */
+}
+
+.org-role-block {
+  margin-bottom: 1rem;
+}
+
+.org-role-block:last-child {
+  margin-bottom: 0;
+}
+
+.desc-list {
+  margin-top: 0.5rem;
+  padding-left: 1.2rem;
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.second-org-card {
+  margin-top: 0.75rem;
+}
+
+.org-school-row {
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 0.5rem;
+}
+
+.org-school-title {
+  font-size: 1.15rem !important;
+  font-weight: 700 !important;
+  color: #333 !important;
   margin: 0;
 }

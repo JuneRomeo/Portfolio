@@ -149,14 +149,24 @@ html {
   background-color: #ffffff;
 }
 
+/* Tighter spacing for section titles and dividers */
 .section-header h2 {
   font-size: 2.5rem;
   font-weight: 700;
   color: #111;
+  margin-bottom: 0.8rem;
+}
+
+.section-header .role-divider {
+  width: 150px;
+  height: 3px;
+  background-color: #ff5722;
+  margin-top: 0.2rem;
+  margin-bottom: 2rem;
 }
 
 .about-content {
-  margin-top: 1.5rem;
+  margin-top: 0.5rem;
   max-width: 800px;
 }
 
@@ -173,54 +183,7 @@ html {
   gap: 2rem;
 }
 
-.edu-card {
-  background: #ffffff;
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-  border-left: 4px solid #ff5722;
-}
-
-.edu-card h3 {
-  font-size: 1.25rem;
-  color: #111;
-  margin-bottom: 0.5rem;
-}
-
-.edu-school {
-  display: block;
-  font-weight: 600;
-  color: #444;
-  margin-bottom: 0.2rem;
-}
-
-.edu-year {
-  display: block;
-  font-size: 0.85rem;
-  color: #ff5722;
-  font-weight: 600;
-  margin-bottom: 1rem;
-}
-
-.edu-card p {
-  color: #666;
-  font-size: 0.95rem;
-  line-height: 1.5;
-}
-
-.edu-card-content {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 1.5rem;
-}
-
-.edu-text {
-  flex: 1;
-}
-
-
-/* Shrunk right-side image container */
+/* Education Card - Horizontal Row Layout */
 .edu-card {
   display: flex !important;
   flex-direction: row !important;
@@ -232,12 +195,45 @@ html {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
   border-left: 4px solid #ff5722;
   gap: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .edu-text {
   flex: 1;
 }
 
+/* Tighter spacing between course, school, and year */
+.edu-card h3 {
+  font-size: 1.25rem;
+  color: #111;
+  margin-bottom: 0.15rem;
+  font-weight: 700;
+}
+
+.edu-school {
+  display: block;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #444;
+  margin-bottom: 0.15rem;
+}
+
+.edu-year {
+  display: block;
+  font-size: 0.95rem;
+  color: #ff5722;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+}
+
+.edu-card p {
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Right-side image container and logo sizing */
 .edu-card .edu-image-container {
   flex-shrink: 0;
   width: 100px;
@@ -284,18 +280,14 @@ html {
     min-height: auto;
     padding: 3rem 1.5rem;
   }
-    .edu-card {
-    position: relative;
-    padding-right: 120px; /* Leaves space for the image so text doesn't overlap */
+  .edu-card {
+    flex-direction: column-reverse !important;
+    text-align: center;
+    padding: 1.5rem;
   }
-
-  img.edu-logo {
-    position: absolute;
-    bottom: 1.5rem;
-    right: 1.5rem;
-    width: 80px !important;
-    height: auto !important;
-    object-fit: contain;
+  .edu-card .edu-image-container {
+    margin-bottom: 1rem;
+    width: 80px;
+    height: 80px;
   }
-  
 }
