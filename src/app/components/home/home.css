@@ -1,291 +1,575 @@
-/* Enable smooth scrolling for anchor links */
+/* #################################################################
+   HOW TO READ THIS FILE (start here)
+   #################################################################
+
+   This file controls how your Home page LOOKS: colors, sizes,
+   spacing and backgrounds. It does not change any words on the page.
+   Those live in home.html.
+
+   The page is built from stacked horizontal bands called "sections".
+   From top to bottom:
+
+     [ HERO ]       The big first band. Your name, short intro,
+                    "About Me" button and round photo.
+     [ ABOUT ]      A short paragraph about you.
+     [ EDUCATION ]  Cards listing your schools.
+     [ PROJECTS ]   Cards showing your projects.
+
+   WHAT "HERO" MEANS
+   In web design, the "hero" is the large first section a visitor sees
+   the moment a page opens, before scrolling. It is the page's "main
+   character", so it holds the most important content. Any name in this
+   file that starts with "hero-" belongs to that top band.
+
+   HOW THIS FILE IS ORGANIZED (use Ctrl+F and search the number)
+     0. Color palette         all colors, defined once
+     1. Global styles         rules for the whole page
+     2. Hero section          the top band (text side + photo side)
+     3. Content sections      shared look of About, Education, Projects
+     4. About content         the paragraph inside About
+     5. Cards                 the Education and Projects cards
+     6. Phones and tablets    changes for smaller screens
+
+   QUICK GLOSSARY
+     "rem"          a size unit. 1rem is about the size of one letter
+                    of normal text. 2rem is twice that.
+     "px"           a pixel, one tiny dot on the screen.
+     "%"            a share of the parent's size (50% = half).
+     "gradient"     a smooth fade from one color to another.
+     "flex"         a layout mode that places items side by side.
+     "padding"      empty space INSIDE a box, around its content.
+     "margin"       empty space OUTSIDE a box, pushing others away.
+     "border-radius" rounds the corners (50% makes a perfect circle).
+     "box-shadow"   a soft shadow under a box, to make it look raised.
+     "class"        a name tag, like .hero-section, that connects a
+                    rule in this file to an element in home.html.
+   ################################################################# */
+
+
+/* =================================================================
+   0. COLOR PALETTE
+   -----------------------------------------------------------------
+   The page uses four main colors: light brown, cream white, white
+   and orange. Each color is saved here ONCE under a nickname such as
+   --orange. The rest of the file uses the nickname instead of the
+   color code, so changing a color here changes it everywhere.
+
+   Example: change --orange from #ff5722 to another code and every
+   orange button, line and ring updates at once.
+
+   NOTE: ":host" is used because Angular keeps each component's CSS
+   private. If the colors do not apply, change ":host" to ":root".
+
+   BACKGROUND DECORATION (extra details that make the page less flat):
+     - a faint dot grid across the hero and the lower sections
+     - concentric orange rings behind your photo in the hero
+   ================================================================= */
+:host {
+  /* ---- Orange (the accent color) ---- */
+  --orange: #ff5722;          /* main bright orange: buttons, short lines, ring, card stripes */
+  --orange-dark: #e64a19;     /* darker orange: used when the mouse hovers the button */
+
+  /* ---- Background colors, lightest to darkest ---- */
+  --cream: #fbf3e8;           /* cream white: the very top of the hero */
+  --light-brown: #f3e6d6;     /* light brown: bottom of the hero and the About section */
+  --tan: #ead9c3;             /* soft tan: the third color, blends in from light brown */
+  --white: #ffffff;           /* pure white: cards, button text, photo border */
+
+  /* ---- Text colors (dark browns so text is easy to read) ---- */
+  --text-dark: #3e2723;       /* darkest brown: your name and headings */
+  --text-mid: #5d4037;        /* medium brown: greeting and About paragraph */
+  --text-soft: #6d4c41;       /* softer brown: small descriptions */
+
+  /* ---- Extras ---- */
+  --line: #d7c3a8;            /* thin outline around the cards (section divider lines are removed) */
+  --dot: rgba(62, 39, 35, 0.10);  /* the dot grid color: brown at only 10% strength, so it is faint */
+}
+
+
+/* =================================================================
+   1. GLOBAL STYLES (rules for the whole page)
+   -----------------------------------------------------------------
+   These apply everywhere, before any specific section is styled.
+   ================================================================= */
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: smooth;    /* clicking a menu link glides down the page instead of jumping */
 }
 
+body {
+  color: var(--text-dark);              /* default text color for the whole page */
+  background-color: var(--light-brown); /* page background, visible if a section has none */
+}
+
+
+/* =================================================================
+   2. HERO SECTION (the big first band at the top of the page)
+   -----------------------------------------------------------------
+   Remember: "hero" = the large first section a visitor sees when the
+   page opens. It is split in two halves:
+
+        +-----------------------------------------------+
+        |  HERO-TEXT-CONTENT      HERO-IMAGE-CONTAINER  |
+        |  Hello, I'm             (   round photo   )   |
+        |  Your name                                    |
+        |  short intro                                  |
+        |  [About Me]                                   |
+        +-----------------------------------------------+
+
+   2a. The hero band itself (size, spacing, background)
+   2b. Left half: the text
+   2c. Right half: the photo and its rings
+   ================================================================= */
+
+/* ---------- 2a. THE HERO BAND ---------- */
+/* ".hero-section" is the whole top band, the box around both halves. */
 .hero-section {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-height: calc(88vh - 70px);
-  padding: 2rem 2% 2rem 10%; /* Increased left padding from 6% to 10% to shift text right */
-  background-color: #ffffff;
-  overflow: hidden;
-  gap: 2rem;
+  display: flex;                  /* puts text (left) and photo (right) side by side */
+  align-items: center;            /* centers both halves vertically in the band */
+  justify-content: space-between; /* pushes text to the far left and photo to the far right */
+  min-height: calc(88vh - 70px);  /* at least 88% of the screen height, minus 70px for the navbar */
+  padding: 2rem 2% 2rem 10%;      /* inner space: top, right, bottom, left (big gap on the left) */
+
+  /* The background has TWO layers stacked on top of each other:
+     1) BACKGROUND DECORATION: a faint dot grid on top
+     2) a soft color fade underneath: it starts as cream at the very
+        top edge and is fully light brown by 55% of the hero's height.
+        Lower the 55% to finish the fade sooner; raise it to spread
+        the fade out more. */
+  background:
+    radial-gradient(var(--dot) 1.5px, transparent 1.5px) 0 0 / 28px 28px,
+    linear-gradient(to bottom, var(--cream) 0%, var(--light-brown) 55%);
+
+  overflow: hidden;               /* anything that sticks out of the band (like the big rings) is hidden */
+  gap: 2rem;                      /* minimum space between the text half and the photo half */
+  /* There is no divider line under the hero on purpose:
+     the color change alone separates it from the next section. */
 }
 
+/* ---------- 2b. HERO LEFT HALF: THE TEXT ---------- */
+/* ".hero-text-content" is the box that holds the greeting, your name,
+   the short line, the intro paragraph and the button. */
 .hero-text-content {
-  flex: 1;
-  max-width: 520px;
+  flex: 1;                        /* lets this half take its share of the available width */
+  max-width: 520px;               /* stops the text from stretching too wide */
 }
 
+/* The small "Hello, I'm" line above your name. */
 .greeting {
   font-size: 1.30rem;
-  font-weight: 500;
-  color: #333;
+  font-weight: 500;               /* medium boldness */
+  color: var(--text-mid);
 }
 
+/* Your name: "Engr. June Romeo L. Ongoco". It is the biggest text on the page. */
 .hero-text-content h1 {
   font-size: 3rem;
-  font-weight: 800;
-  color: #111;
-  margin: 0.2rem 0;
-  line-height: 1.1;
-  white-space: nowrap;
+  font-weight: 800;               /* extra bold */
+  color: var(--text-dark);
+  margin: 0.2rem 0;               /* small space above and below */
+  line-height: 1.1;               /* tight spacing between lines if the name wraps */
+  white-space: nowrap;            /* keeps the name on ONE line on desktop screens */
 }
 
+/* The short orange line under your name.
+   (The same class is reused under the headings of the other sections.) */
 .role-divider {
   width: 150px;
-  height: 3px;
-  background-color: #ff5722;
+  height: 3px;                    /* thin, like an underline */
+  background-color: var(--orange);
   margin: 0.8rem 0;
 }
 
+/* A subtitle under your name. It only shows up if you add an h2
+   (a second-level heading) to the hero in home.html. */
 .hero-text-content h2 {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #222;
+  color: var(--text-dark);
   margin-bottom: 1.2rem;
 }
 
+/* The short intro paragraph ("A Computer Engineering graduate...") */
 .hero-text-content p {
   font-size: 1.15rem;
-  color: #666;
-  line-height: 1.6;
-  margin-bottom: 2rem;
+  color: var(--text-soft);
+  line-height: 1.6;               /* breathing room between lines of text */
+  margin-bottom: 2rem;            /* space between the paragraph and the button */
 }
 
+/* The "About Me" button: orange with white text.
+   The class is called btn-orange because of its color. */
 .btn-orange {
-  background-color: #ff5722;
-  color: #fff;
-  border: none;
-  padding: 0.75rem 2.2rem;
+  background-color: var(--orange);
+  color: var(--white);
+  border: none;                   /* no outline around the button */
+  padding: 0.75rem 2.2rem;        /* inner space: makes the button bigger than its text */
   font-size: 1rem;
-  font-weight: 500;
-  border-radius: 6px;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(255, 87, 34, 0.3);
-  transition: opacity 0.2s;
+  font-weight: 600;
+  border-radius: 6px;             /* slightly rounded corners */
+  cursor: pointer;                /* the mouse turns into a pointing hand */
+  box-shadow: 0 4px 12px rgba(255, 87, 34, 0.3);  /* soft orange glow under the button */
+  transition: background-color 0.2s, transform 0.2s;  /* makes the hover change smooth, not sudden */
 }
 
+/* What the button does when the mouse is on top of it. */
 .btn-orange:hover {
-  opacity: 0.88;
+  background-color: var(--orange-dark);  /* turns a deeper orange */
+  transform: translateY(-1px);           /* lifts up by 1 pixel, like it is being pressed toward you */
 }
 
-/* Right-side circular image container */
+/* ---------- 2c. HERO RIGHT HALF: THE PHOTO ---------- */
+/* ".hero-image-container" is the box that holds your round photo,
+   pushed toward the right side of the hero. */
 .hero-image-container {
   flex: 1;
   display: flex;
-  justify-content: flex-end; /* Changes alignment from center to the right */
-  align-items: center;
-  position: relative;
+  justify-content: flex-end;      /* pushes the photo to the right edge of its box */
+  align-items: center;            /* centers it vertically */
+  position: relative;             /* lets things inside be positioned relative to this box */
   min-height: 480px;
-  margin-right: 10rem;/* margin-right can be removed or set to 0 */
+  margin-right: 10rem;            /* empty space between the photo and the right edge of the screen */
 }
 
+/* ".circle-profile-wrapper" is a square box that holds the layers of
+   the photo area, stacked like sheets of paper. From back to front:
+     1. the big faded orange rings (the "::before" rule below)
+     2. the dashed spinning ring (.outer-ring)
+     3. your photo with its white border (.profile-circle)  */
 .circle-profile-wrapper {
   position: relative;
   width: 420px;
   height: 420px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center;        /* centers the photo inside the box */
 }
 
-/* Outer decorative circular ring border */
+/* BACKGROUND DECORATION: the big, soft, concentric orange rings behind
+   your photo, like ripples in water. "::before" means this shape is
+   drawn by CSS only, so it needs no extra code in home.html. */
+.circle-profile-wrapper::before {
+  content: "";                    /* needed to make the shape appear */
+  position: absolute;             /* floats freely behind everything else */
+  left: 50%;
+  top: 50%;
+  width: 800px;
+  height: 800px;
+  transform: translate(-50%, -50%);  /* nudges it back so it is perfectly centered on the photo */
+  border-radius: 50%;             /* makes it a circle */
+  pointer-events: none;           /* mouse clicks pass through, so the rings never block anything */
+  background: repeating-radial-gradient(  /* draws repeating circles, alternating two orange strengths */
+    circle,
+    rgba(255, 87, 34, 0.14) 0 55px,   /* a ring 55px wide at 14% orange */
+    rgba(255, 87, 34, 0.05) 55px 110px /* a ring 55px wide at 5% orange (fainter) */
+  );
+  /* The two lines below fade the rings away toward their outer edge.
+     (Two versions are written so it works in all browsers.) */
+  -webkit-mask-image: radial-gradient(circle, #000 35%, transparent 70%);
+  mask-image: radial-gradient(circle, #000 35%, transparent 70%);
+}
+
+/* The dashed orange ring around your photo. It turns slowly. */
 .outer-ring {
   position: absolute;
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  border: 4px dashed #ff5722;
-  animation: rotateRing 30s linear infinite;
-  opacity: 0.6;
+  border: 4px dashed var(--orange);   /* a dashed line, 4px thick */
+  animation: rotateRing 30s linear infinite;  /* plays the spin below: 30 seconds per turn, forever, at a steady speed */
+  opacity: 0.7;                   /* 70% visible, so it looks softer */
 }
 
+/* The spin animation used by the dashed ring.
+   It starts at 0 degrees and ends at 360 degrees (one full turn). */
 @keyframes rotateRing {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
-/* Main circular profile image frame */
+/* The round frame that holds your photo, with a thick white border. */
 .profile-circle {
   width: 370px;
   height: 370px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 8px solid #fdfdfd;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
-  background-color: #f0f0f0;
-  z-index: 2;
+  border-radius: 50%;             /* makes the frame a circle */
+  overflow: hidden;               /* hides the parts of the photo outside the circle */
+  border: 8px solid var(--white); /* the thick white border */
+  box-shadow: 0 15px 35px rgba(62, 39, 35, 0.15);  /* soft brown shadow under the photo */
+  background-color: #f0f0f0;      /* light grey shown only while the photo is loading */
+  z-index: 2;                     /* "layer number": 2 puts the photo in front of the rings */
 }
 
+/* The photo itself. */
 .profile-circle img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top center;
+  height: 100%;                   /* fills the whole circle */
+  object-fit: cover;              /* fills the circle without stretching the photo (extra parts are cropped) */
+  object-position: top center;    /* when cropping, keeps the top of the photo so your face stays visible */
 }
 
-/* --- Scrollable Sections (About & Education) --- */
+
+/* =================================================================
+   3. CONTENT SECTIONS (everything below the hero)
+   -----------------------------------------------------------------
+   About, Education and Projects share the same basic layout:
+   a tall band with the content centered vertically.
+   ================================================================= */
+
+/* Shared look for the three sections below the hero. */
 .content-section {
-  min-height: 90vh;
+  min-height: 90vh;               /* each section is at least 90% of the screen tall */
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 4rem 6%;
-  border-top: 1px solid #eaeaea;
+  flex-direction: column;         /* stacks the content top to bottom */
+  justify-content: center;        /* centers the content vertically in the band */
+  padding: 4rem 6%;               /* inner space: 4rem top and bottom, 6% on the left and right */
+  /* There is no divider line between sections on purpose:
+     the soft color change separates them. */
 }
 
-.about-section {
-  background-color: #fafafa;
+/* THE COLOR FLOW (how the backgrounds blend, top to bottom):
+     Hero:       cream -> light brown      (fade inside the hero)
+     About:      light brown               (same color the hero ends on)
+     Education:  light brown -> tan        (fade inside the section)
+     Projects:   tan                       (same color Education ends on)
+   Each section starts with the color the one above it ended on, so
+   there is never a hard edge between them. */
+
+/* Base background shared by About, Education and Projects:
+   light brown plus the faint dot grid (BACKGROUND DECORATION). */
+.about-section,
+.education-section,
+.featured-projects-section {
+  background-color: var(--light-brown);
+  background-image: radial-gradient(var(--dot) 1.5px, transparent 1.5px);  /* one faint dot... */
+  background-size: 28px 28px;     /* ...repeated every 28 pixels, which forms the grid */
+  background-position: 0 0;
 }
 
+/* Education: starts light brown (matching About above it) and fades
+   down into tan. The dot grid is drawn on top of the fade. */
 .education-section {
-  background-color: #ffffff;
+  background:
+    radial-gradient(var(--dot) 1.5px, transparent 1.5px) 0 0 / 28px 28px,
+    linear-gradient(to bottom, var(--light-brown), var(--tan));
 }
 
-/* Tighter spacing for section titles and dividers */
+/* Projects: solid tan, the color Education fades into. */
+.featured-projects-section {
+  background-color: var(--tan);
+}
+
+/* The big title of each section ("About", "Education", "Projects"). */
 .section-header h2 {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #111;
+  color: var(--text-dark);
   margin-bottom: 0.8rem;
 }
 
+/* The short orange line under each section title.
+   (Uses the same .role-divider class as the hero, with section spacing.) */
 .section-header .role-divider {
   width: 150px;
   height: 3px;
-  background-color: #ff5722;
+  background-color: var(--orange);
   margin-top: 0.2rem;
-  margin-bottom: 2rem;
+  margin-bottom: 2rem;            /* space between the line and the content below it */
 }
 
+
+/* =================================================================
+   4. ABOUT SECTION CONTENT
+   -----------------------------------------------------------------
+   The paragraph(s) of text inside the About section.
+   ================================================================= */
 .about-content {
   margin-top: 0.5rem;
-  max-width: 800px;
+  max-width: 800px;               /* keeps lines a comfortable reading length, not edge to edge */
 }
 
 .about-content p {
   font-size: 1.15rem;
-  color: #555;
-  line-height: 1.8;
+  color: var(--text-mid);
+  line-height: 1.8;               /* extra space between lines makes long text easier to read */
 }
 
-.education-grid {
+
+/* =================================================================
+   5. EDUCATION & PROJECT CARDS
+   -----------------------------------------------------------------
+   Each school and each project is shown as a white card with an
+   orange stripe on its left edge. A card looks like this:
+
+        +--+--------------------------------------+
+        |##| Title (degree or project name)       |
+        |##| School name or subtitle     [ logo ] |
+        |##| Year (orange)                        |
+        |##| Short description                    |
+        +--+--------------------------------------+
+         ^
+         the orange stripe
+   ================================================================= */
+
+/* The grid is the area that holds all the cards. It automatically
+   fits as many cards per row as the screen allows (each at least
+   320px wide) and wraps the rest onto the next row. */
+.education-grid,
+.projects-grid {
   margin-top: 2rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;                      /* space between cards */
 }
 
-/* Education Card - Horizontal Row Layout */
-.edu-card {
+/* One card. (The "!important" marks force these rules to win over any
+   conflicting rules from elsewhere, such as the global stylesheet.) */
+.edu-card,
+.project-card {
   display: flex !important;
-  flex-direction: row !important;
-  justify-content: space-between !important;
-  align-items: center !important;
-  background: #ffffff;
-  padding: 2rem 2.5rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-  border-left: 4px solid #ff5722;
-  gap: 2rem;
+  flex-direction: row !important;           /* text on the left, logo on the right */
+  justify-content: space-between !important;/* pushes text and logo to opposite sides */
+  align-items: center !important;           /* centers them vertically */
+  background: var(--white);
+  padding: 2rem 2.5rem;                     /* inner space between the card edge and its content */
+  border-radius: 10px;                      /* rounded corners */
+  border: 1px solid var(--line);            /* thin light outline around the card */
+  border-left: 5px solid var(--orange);     /* thicker orange stripe on the left edge */
+  box-shadow: 0 4px 15px rgba(62, 39, 35, 0.08);  /* very soft shadow so the card looks slightly raised */
+  gap: 2rem;                                /* space between the text and the logo */
   margin-bottom: 1.5rem;
 }
 
-.edu-text {
-  flex: 1;
+/* The text area inside a card (everything except the logo). */
+.edu-text,
+.project-text {
+  flex: 1;                        /* takes all the space the logo does not use */
 }
 
-/* Tighter spacing between course, school, and year */
-.edu-card h3 {
+/* The card title: your degree or the project name. */
+.edu-card h3,
+.project-card h3 {
   font-size: 1.25rem;
-  color: #111;
+  color: var(--text-dark);
   margin-bottom: 0.15rem;
   font-weight: 700;
 }
 
-.edu-school {
-  display: block;
+/* The school name or project subtitle, just under the title. */
+.edu-school,
+.project-subtitle {
+  display: block;                 /* makes it sit on its own line */
   font-size: 1.15rem;
   font-weight: 700;
-  color: #444;
+  color: var(--text-mid);
   margin-bottom: 0.15rem;
 }
 
+/* The years (for example 2018 - 2023), shown in orange so they stand out. */
 .edu-year {
   display: block;
   font-size: 0.95rem;
-  color: #ff5722;
+  color: var(--orange);
   font-weight: 600;
   margin-bottom: 0.8rem;
 }
 
-.edu-card p {
-  color: #666;
+/* The short description at the bottom of a card. */
+.edu-card p,
+.project-card p {
+  color: var(--text-soft);
   font-size: 0.95rem;
   line-height: 1.5;
-  margin: 0;
+  margin: 0;                      /* removes the default extra space around paragraphs */
 }
 
-/* Right-side image container and logo sizing */
+/* The square box that holds the school logo, on the right of the card. */
 .edu-card .edu-image-container {
-  flex-shrink: 0;
+  flex-shrink: 0;                 /* never let the logo box get squeezed smaller */
   width: 100px;
   height: 100px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center;        /* centers the logo inside its box */
 }
 
+/* The logo picture itself. */
 .edu-card .edu-image-container img.edu-logo {
   width: 100% !important;
   height: 100% !important;
-  object-fit: contain !important;
+  object-fit: contain !important; /* shows the WHOLE logo, shrunk to fit, never cropped */
 }
 
-/* Responsive layout adjustments for smaller viewports */
+
+/* =================================================================
+   6. PHONES AND TABLETS (RESPONSIVE RULES)
+   -----------------------------------------------------------------
+   Everything inside the block below only applies when the screen is
+   1024 pixels wide or narrower (tablets and phones). On a wide
+   desktop screen, these rules are ignored.
+
+   The main idea: on a small screen there is no room for side-by-side
+   layouts, so things are stacked one above the other and centered.
+   ================================================================= */
 @media (max-width: 1024px) {
+
+  /* HERO: instead of text left and photo right, the halves stack.
+     "column-reverse" puts the photo on top and the text below it. */
   .hero-section {
     flex-direction: column-reverse;
-    text-align: center;
-    padding: 3rem 1.5rem;
-    min-height: auto;
+    text-align: center;           /* centers the text */
+    padding: 3rem 1.5rem;         /* smaller inner space on small screens */
+    min-height: auto;             /* the band is only as tall as its content */
   }
+
+  /* Your name is allowed to wrap onto two lines, so it does not run off a narrow screen. */
   .hero-text-content h1 {
     white-space: normal;
   }
+
+  /* The photo box is centered, and its big right-hand gap is removed. */
   .hero-image-container {
     justify-content: center;
     min-height: 350px;
     margin-right: 0;
   }
+
+  /* The short orange line is centered under the name. */
   .role-divider {
     margin: 0.8rem auto;
   }
+
+  /* The dashed ring and photo area get smaller. */
   .circle-profile-wrapper {
     width: 320px;
     height: 320px;
-    /* If you wanted to nudge the mobile image specifically, you could add margin-left here */
   }
+
+  /* The big faded background rings shrink too, so they fit a phone screen. */
+  .circle-profile-wrapper::before {
+    width: 560px;
+    height: 560px;
+  }
+
+  /* The round photo gets smaller. */
   .profile-circle {
     width: 280px;
     height: 280px;
   }
+
+  /* About, Education and Projects: less empty space, and no forced minimum height. */
   .content-section {
     min-height: auto;
     padding: 3rem 1.5rem;
   }
-  .edu-card {
+
+  /* CARDS: the logo moves above the text and everything is centered. */
+  .edu-card,
+  .project-card {
     flex-direction: column-reverse !important;
     text-align: center;
     padding: 1.5rem;
   }
+
+  /* The school logo is slightly smaller, with space below it. */
   .edu-card .edu-image-container {
     margin-bottom: 1rem;
     width: 80px;

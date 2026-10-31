@@ -1,55 +1,196 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background-color: #fdfdfd;
+/* #################################################################
+   HOW TO READ THIS FILE (start here)
+   #################################################################
+
+   This file controls how the TOP BAR (navbar) and the frame around
+   every page LOOK: colors, sizes, spacing and fonts. It does not
+   change any words. Those live in the HTML file.
+
+   The screen is built from two parts, one above the other:
+
+        +-----------------------------------------------+
+        |  NAVBAR   Logo            Home  Experience ... |  <- bold orange bar
+        +-----------------------------------------------+
+        |                                               |
+        |  MAIN CONTAINER                               |
+        |  (the page you picked in the navbar shows     |
+        |   up here: Home, Experience, Projects or      |
+        |   Contact)                                    |
+        |                                               |
+        +-----------------------------------------------+
+
+     [ NAVBAR ]          The bar at the top. It is now a strong, vibrant
+                         ORANGE with dark brown text and stays fixed.
+     [ MAIN CONTAINER ]  The area under the bar that holds the
+                         current page.
+
+   WHAT "STICKY" MEANS
+   A "sticky" bar scrolls with the page until it reaches the top of
+   the screen, then sticks there. That is why the navbar stays
+   visible while you scroll down.
+
+   HOW THIS FILE IS ORGANIZED (use Ctrl+F and search the number)
+      0. Color palette       all colors, defined once
+      1. Global styles       the font and basic rules for the page
+      2. The navbar bar      the orange band across the top
+      3. Logo                your name or brand on the left
+      4. Navigation links    Home, Experience, Projects, Contact
+      5. Main container      the area that holds each page
+      6. Phones and tablets  changes for smaller screens
+
+   QUICK GLOSSARY
+      "rem"          a size unit. 1rem is about the size of one letter
+                     of normal text. 2rem is twice that.
+      "px"           a pixel, one tiny dot on the screen.
+      "%"            a share of the parent's size (50% = half).
+      "flex"         a layout mode that places items side by side.
+      "gap"          empty space BETWEEN items inside a flex layout.
+      "padding"      empty space INSIDE a box, around its content.
+      "margin"       empty space OUTSIDE a box, pushing others away.
+      "hover"        the moment the mouse pointer is on top of something.
+      "active"       the link of the page you are on right now.
+      "z-index"      a "layer number": a bigger number is drawn in
+                     front of a smaller one.
+      "box-shadow"   a soft shadow under a box, to make it look raised.
+      "class"        a name tag, like .navbar, that connects a rule in
+                     this file to an element in the HTML file.
+   ################################################################# */
+
+
+/* =================================================================
+   0. COLOR PALETTE
+   -----------------------------------------------------------------
+   This file uses the SAME palette as the Home, Experience, Projects
+   and Contact pages. Each color is saved here ONCE under a nickname
+   such as --orange. The rest of the file uses the nickname instead
+   of the color code, so changing a color here changes it everywhere.
+
+   NOTE: ":host" is used because Angular keeps each component's CSS
+   private. If the colors do not apply, change ":host" to ":root".
+   ================================================================= */
+:host {
+  /* ---- Orange (the bar color) ---- */
+  --orange: #ff7a00;          /* strong, deeply vibrant true orange */
+  --orange-dark: #cc5200;     /* deep burnt orange: the thin line along the bottom edge */
+
+  /* ---- Background colors ---- */
+  --cream: #fbf3e8;           /* cream white: page background */
+  --light-brown: #f3e6d6;     /* light brown: main container under the bar */
+  --white: #ffffff;           /* pure white */
+
+  /* ---- Accent Color ---- */
+  --accent: #2a5c53;          /* Retro Teal: pairs nicely with warm orange and cream */
+
+  /* ---- Extras ---- */
+  --white-soft: rgba(255, 255, 255, 0.85);  
+  --white-line: rgba(255, 255, 255, 0.6);   
+  --bar-shadow: rgba(62, 39, 35, 0.15);     /* soft brown shadow under the bar */
 }
 
+
+/* =================================================================
+   1. GLOBAL STYLES (rules for the whole page)
+   -----------------------------------------------------------------
+   ================================================================= */
+:host,
+body {
+  margin: 0;                        
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;  
+  background-color: var(--cream);   
+}
+
+
+/* =================================================================
+   2. THE NAVBAR BAR (the orange band across the top)
+   -----------------------------------------------------------------
+   ================================================================= */
 .navbar {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.2rem 6%;
-  background-color: #ffffff;
-  border-bottom: 1px solid #eaeaea;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+  justify-content: space-between; 
+  align-items: center;            
+  padding: 1.2rem 6%;             
+  background-color: var(--orange);                      
+  border-bottom: 1px solid var(--orange-dark);     
+  box-shadow: 0 2px 10px var(--bar-shadow);        
+  position: sticky;               
+  top: 0;                         
+  z-index: 1000;                  
 }
 
+
+/* =================================================================
+   3. LOGO (your name or brand on the left)
+   ================================================================= */
 .logo {
   font-size: 1.5rem;
-  font-weight: 700;
-  color: #111;
-  letter-spacing: -0.5px;
+  font-weight: 700;               
+  color: #2b170e;                 /* deep dark brown text for sharp contrast */
+  letter-spacing: -0.5px;         
 }
 
+
+/* =================================================================
+   4. NAVIGATION LINKS (Home, Experience, Projects, Contact)
+   ================================================================= */
 .nav-links {
   display: flex;
-  gap: 2rem;
+  gap: 2rem;                      
   align-items: center;
 }
 
 .nav-links button {
-  background: none;
-  border: none;
+  background: none;               
+  border: none;                   
+  border-bottom: 2px solid transparent;  
   font-size: 1rem;
+  font-family: inherit;           
   font-weight: 400;
-  cursor: pointer;
-  color: #555;
+  cursor: pointer;                
+  color: #381e13;                 /* dark rich brown for links */
   padding: 0.25rem 0;
-  transition: color 0.2s;
+  transition: color 0.2s, border-color 0.2s;   
 }
 
 .nav-links button:hover {
-  color: #ff5722;
+  color: #120703;
+  border-bottom-color: #120703;      
 }
 
 .nav-links button.active {
-  color: #ff5722;
-  font-weight: 600;
+  color: #120703;
+  font-weight: 600;               
+  border-bottom-color: #120703;          
 }
 
+
+/* =================================================================
+   5. MAIN CONTAINER (the area that holds each page)
+   ================================================================= */
 .main-container {
-  min-height: calc(100vh - 70px);
-  background-color: #f4f5f7;
+  min-height: calc(100vh - 72px); 
+  background-color: var(--light-brown);
+}
+
+
+/* =================================================================
+   6. PHONES AND TABLETS (RESPONSIVE RULES)
+   ================================================================= */
+@media (max-width: 600px) {
+  .navbar {
+    padding: 0.8rem 4%;
+    flex-wrap: wrap;              
+    gap: 0.5rem;                  
+  }
+
+  .nav-links {
+    gap: 1rem;
+  }
+
+  .logo {
+    font-size: 1.3rem;
+  }
+
+  .nav-links button {
+    font-size: 0.9rem;
+  }
 }

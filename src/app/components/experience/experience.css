@@ -1,132 +1,393 @@
-.experience-section {
-  padding: 3rem 2rem;
-  max-width: 900px;
-  margin: 0 auto;
+/* #################################################################
+   HOW TO READ THIS FILE (start here)
+   #################################################################
+
+   This file controls how your Experience page LOOKS: colors, sizes,
+   spacing and shadows. It does not change any words on the page.
+   Those live in the page's HTML file.
+
+   The page is one centered column made of stacked "groups". Each
+   group has a heading and a list of cards. From top to bottom:
+
+     [ TITLE ]        The big centered "Experience" heading.
+     [ GROUP ]        A heading (for example "Work Experience")
+                      with an orange title and a thin line under it.
+     [ TIMELINE ]     The vertical list of cards inside a group.
+     [ CARD ]         One job, role or organization, with a title,
+                      a small label (badge), and a description.
+
+   WHAT "TIMELINE" MEANS
+   In this file, the "timeline" is simply the vertical list of cards
+   inside one group, stacked from top to bottom with a small gap
+   between them.
+
+   HOW THIS FILE IS ORGANIZED (use Ctrl+F and search the number)
+     0. Color palette         all colors, defined once
+     1. Background            the faint dot grid behind the whole page
+     2. Page layout           the centered column and the main title
+     3. Groups                the group headings and the card lists
+     4. Cards                 the white boxes and their hover effect
+     5. Inside a card         title row, badges, subtitle, description
+     6. Organization cards    cards that group several roles by school
+     7. Phones and tablets    changes for smaller screens
+
+   QUICK GLOSSARY
+     "rem"          a size unit. 1rem is about the size of one letter
+                    of normal text. 2rem is twice that.
+     "px"           a pixel, one tiny dot on the screen.
+     "%"            a share of the parent's size (100% = full width).
+     "gradient"     a smooth fade from one color to another.
+     "flex"         a layout mode that places items in a row or column.
+     "gap"          empty space BETWEEN items inside a flex layout.
+     "padding"      empty space INSIDE a box, around its content.
+     "margin"       empty space OUTSIDE a box, pushing others away.
+     "border-radius" rounds the corners (8px = slightly rounded).
+     "box-shadow"   a soft shadow under a box, to make it look raised.
+     "badge"        a small colored label, like a tag, on a card.
+     "class"        a name tag, like .card, that connects a rule in
+                    this file to an element in the HTML file.
+   ################################################################# */
+
+
+/* =================================================================
+   0. COLOR PALETTE
+   -----------------------------------------------------------------
+   This page now uses the SAME palette as the Home page: light brown,
+   cream white, white and orange. Each color is saved here ONCE under
+   a nickname such as --orange. The rest of the file uses the nickname
+   instead of the color code, so changing a color here changes it
+   everywhere.
+
+   Example: change --orange from #ff5722 to another code and every
+   orange heading and badge updates at once.
+
+   NOTE: ":host" is used because Angular keeps each component's CSS
+   private. If the colors do not apply, change ":host" to ":root".
+
+   BACKGROUND DECORATION (extra detail that makes the page less flat):
+     - a faint dot grid across the whole page, the same one the Home
+       page uses (see section 1)
+   ================================================================= */
+:host {
+  /* ---- Orange (the accent color) ---- */
+  --orange: #ff5722;          /* main bright orange: group headings and the main badges */
+
+  /* ---- Background colors ---- */
+  --light-brown: #f3e6d6;     /* light brown: background of the date badge */
+  --tan: #ead9c3;             /* soft tan: the thin divider lines inside organization cards */
+  --white: #ffffff;           /* pure white: card background and badge text */
+
+  /* ---- Text colors (dark browns so text is easy to read) ---- */
+  --text-dark: #3e2723;       /* darkest brown: main title, card titles, subtitles */
+  --text-mid: #5d4037;        /* medium brown: school headings and the date badge text */
+  --text-soft: #6d4c41;       /* softer brown: descriptions and bullet lists */
+
+  /* ---- Extras ---- */
+  --line: #d7c3a8;            /* thin outline around cards and under group headings */
+  --dot: rgba(62, 39, 35, 0.10);  /* the dot grid color: brown at only 10% strength, so it is faint */
+  --shadow: rgba(62, 39, 35, 0.04);        /* very faint brown shadow on a resting card */
+  --shadow-hover: rgba(62, 39, 35, 0.10);  /* slightly stronger brown shadow when hovered */
 }
 
+
+/* =================================================================
+   1. BACKGROUND (the faint dot grid behind the page)
+   -----------------------------------------------------------------
+   This is the same decoration the Home page uses: a faint grid of
+   small dots over a soft color fade. It is drawn on ":host", which
+   is the full-width box around this whole page, so the dots cover
+   the entire screen and not just the 900px column in the middle.
+
+   The background has TWO layers stacked on top of each other:
+     1) a faint dot grid on top
+     2) a soft color fade underneath: light brown at the top, tan
+        at the bottom (the same fade the Home page's Education
+        section uses)
+
+   The white cards sit on top of the dots, so the dots only show in
+   the gaps around and between the cards.
+
+   HOW TO CHANGE THE DOTS
+     - Bigger or smaller dots: change "1.5px" in the rule below.
+       A larger number gives bigger dots.
+     - Dots closer together or farther apart: change "28px" in the
+       rule below. A smaller number packs the dots tighter.
+     - Dots easier or harder to see: change the "0.10" in --dot in
+       section 0. Closer to 0 is fainter, closer to 1 is stronger.
+     - No dots at all: delete the first line of the "background"
+       (the one that starts with "radial-gradient").
+
+   NOTE: If you change the palette's ":host" to ":root" (see the note
+   in section 0), keep THIS rule on ":host". It styles the page box
+   itself.
+   ================================================================= */
+:host {
+  display: block;                 /* makes the page box a full-width block so the background can fill it */
+  background:
+    /* LAYER 1 (top): the dot grid.
+       "1.5px" = the size of each dot. "28px 28px" = the dot is
+       repeated every 28 pixels across and down, which forms the grid. */
+    radial-gradient(var(--dot) 1.5px, transparent 1.5px) 0 0 / 28px 28px,
+
+    /* LAYER 2 (underneath): the soft fade from light brown (top)
+       to tan (bottom). */
+    linear-gradient(to bottom, var(--light-brown), var(--tan));
+}
+
+
+/* =================================================================
+   2. PAGE LAYOUT (the centered column and the main title)
+   -----------------------------------------------------------------
+   The whole page content sits in one column in the middle of the
+   screen, never wider than 900px, so lines stay easy to read.
+   ================================================================= */
+
+/* ".experience-section" is the box around everything on this page. */
+.experience-section {
+  padding: 3rem 2rem;             /* inner space: 3rem top and bottom, 2rem left and right */
+  max-width: 900px;               /* stops the content from stretching too wide */
+  margin: 0 auto;                 /* "auto" on the sides centers the column on the screen */
+}
+
+/* The big title at the top: "Experience". */
 .experience-section h2 {
   text-align: center;
   font-size: 2.5rem;
-  margin-bottom: 2.5rem;
-  color: #111;
+  margin-bottom: 2.5rem;          /* space between the title and the first group */
+  color: var(--text-dark);
 }
 
+
+/* =================================================================
+   3. GROUPS (headings and the lists of cards)
+   -----------------------------------------------------------------
+   A group looks like this:
+
+        Work Experience                    <- orange heading
+        ---------------------------------  <- thin line
+        [ card ]
+        [ card ]
+        [ card ]
+   ================================================================= */
+
+/* ".content-container" holds all the groups, stacked top to bottom. */
 .content-container {
   display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
+  flex-direction: column;         /* stacks the groups vertically */
+  gap: 2.5rem;                    /* space between one group and the next */
 }
 
+/* The heading of each group, such as "Work Experience". */
 .section-group h3 {
   font-size: 1.5rem;
-  color: #ff5722;
+  color: var(--orange);
   margin-bottom: 1rem;
-  border-bottom: 2px solid #eaeaea;
-  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--line);   /* thin line under the heading */
+  padding-bottom: 0.5rem;                 /* space between the heading text and its line */
 }
 
+/* ".timeline" is the vertical list of cards inside one group. */
 .timeline {
   display: flex;
   flex-direction: column;
-  gap: .75rem;
+  gap: 0.75rem;                   /* small space between one card and the next */
 }
 
+
+/* =================================================================
+   4. CARDS (the white boxes)
+   -----------------------------------------------------------------
+   Each job, role or organization is shown as a white card with a
+   thin outline and a very soft shadow. A card looks like this:
+
+        +-----------------------------------------------+
+        | Title (job or role)               [ badge ]   |
+        | Subtitle (company or place)                   |
+        | Short description                             |
+        +-----------------------------------------------+
+   ================================================================= */
+
+/* One card. */
 .card {
-  background: #fff;
-  border: 1px solid #eaeaea;
-  border-radius: 8px;
-  padding: 1.5rem;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-  transition: transform 0.2s, box-shadow 0.2s;
+  background: var(--white);
+  border: 1px solid var(--line);          /* thin light outline around the card */
+  border-radius: 8px;                     /* slightly rounded corners */
+  padding: 1.5rem;                        /* inner space between the card edge and its content */
+  box-shadow: 0 4px 6px var(--shadow);    /* very soft shadow so the card looks slightly raised */
+  transition: transform 0.2s, box-shadow 0.2s;  /* makes the hover change smooth, not sudden */
 }
 
+/* What the card does when the mouse is on top of it. */
 .card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+  transform: translateY(-2px);                 /* lifts up by 2 pixels */
+  box-shadow: 0 6px 12px var(--shadow-hover);  /* the shadow gets a little stronger */
 }
 
+
+/* =================================================================
+   5. INSIDE A CARD (title row, badges, subtitle, description)
+   -----------------------------------------------------------------
+   The top row of a card has the title on the left and a badge on the
+   right. Below it come the subtitle and the description.
+   ================================================================= */
+
+/* The top row: title on the left, badge on the right. */
 .card-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: space-between; /* pushes title and badge to opposite sides */
+  align-items: center;            /* centers them vertically */
   margin-bottom: 0.5rem;
 }
 
+/* The card title, such as your job or role name. */
 .card-header h4 {
-  margin: 0;
-  color: #111;
+  margin: 0;                      /* removes the default extra space around the title */
+  color: var(--text-dark);
   font-size: 1.2rem;
 }
 
+/* The small label (badge): orange with white text. */
 .badge {
-  background: #ff5722;
-  color: #fff;
-  padding: 0.25rem 0.6rem;
+  background: var(--orange);
+  color: var(--white);
+  padding: 0.25rem 0.6rem;        /* inner space: makes the badge bigger than its text */
   font-size: 0.75rem;
   border-radius: 4px;
-  font-weight: 500;
+  font-weight: 500;               /* medium boldness */
 }
 
+/* The date badge: a quieter version. Light brown with brown text,
+   so dates do not compete with the orange badges. */
 .badge.date {
-  background: #e9ecef;
-  color: #495057;
+  background: var(--light-brown);
+  color: var(--text-mid);
 }
 
+/* The subtitle under the title, such as the company name. */
 .subtitle {
-  color: #111;
+  color: var(--text-dark);
   font-size: 0.95rem;
   margin-bottom: 0.5rem;
 }
 
+/* The short description at the bottom of a card. */
 .desc {
-  color: #666;
+  color: var(--text-soft);
   font-size: 0.9rem;
-  line-height: 1.5;
-  margin: 0;
+  line-height: 1.5;               /* breathing room between lines of text */
+  margin: 0;                      /* removes the default extra space around paragraphs */
 }
 
-/* --- Added Styles for Grouped Organization Cards --- */
+
+/* =================================================================
+   6. ORGANIZATION CARDS (several roles grouped under one school)
+   -----------------------------------------------------------------
+   Some cards list one school or organization, then several roles
+   inside it. Such a card looks like this:
+
+        +-----------------------------------------------+
+        | School or organization name                   |
+        | -------------------------------------------   |
+        | Role 1                            [ badge ]   |
+        |   - bullet point                              |
+        |   - bullet point                              |
+        |                                               |
+        | Role 2                            [ badge ]   |
+        |   - bullet point                              |
+        +-----------------------------------------------+
+   ================================================================= */
+
+/* The box that fills the whole width of the card. */
 .card-content-wrapper {
   width: 100%;
 }
 
+/* The school or organization name at the top of the card. */
 .org-school-heading {
   font-size: 1.15rem;
-  font-weight: 700;
-  color: #444;
-  margin-top: 0;           /* Ensures no extra spacing at the top */
-  margin-bottom: 0.75rem;  /* Controls the gap between the school title and the first role */
+  font-weight: 700;               /* bold */
+  color: var(--text-mid);
+  margin-top: 0;                  /* no extra space at the top */
+  margin-bottom: 0.75rem;         /* gap between the school name and the first role */
 }
 
+/* One role inside the card, with space below it. */
 .org-role-block {
   margin-bottom: 1rem;
 }
 
+/* The last role needs no space below it. */
 .org-role-block:last-child {
   margin-bottom: 0;
 }
 
+/* The bullet list of what you did in a role. */
 .desc-list {
   margin-top: 0.5rem;
-  padding-left: 1.2rem;
-  color: #666;
+  padding-left: 1.2rem;           /* space on the left so the bullet dots show */
+  color: var(--text-soft);
   font-size: 0.9rem;
   line-height: 1.5;
 }
 
+/* A second organization card placed right after the first one. */
 .second-org-card {
   margin-top: 0.75rem;
 }
 
+/* The row that holds a school name, with a thin divider under it. */
 .org-school-row {
   margin-bottom: 1rem;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--tan);    /* thin soft divider line */
   padding-bottom: 0.5rem;
 }
 
+/* The school title inside that row.
+   (The "!important" marks force these rules to win over any
+   conflicting rules from elsewhere, such as the global stylesheet.) */
 .org-school-title {
   font-size: 1.15rem !important;
   font-weight: 700 !important;
-  color: #333 !important;
+  color: var(--text-dark) !important;
   margin: 0;
+}
+
+
+/* =================================================================
+   7. PHONES AND TABLETS (RESPONSIVE RULES)
+   -----------------------------------------------------------------
+   Everything inside the block below only applies when the screen is
+   768 pixels wide or narrower (phones and small tablets). On a wider
+   screen, these rules are ignored.
+
+   The main idea: on a small screen there is less room, so the
+   spacing is reduced and the title and badge can wrap onto two lines
+   instead of being squeezed side by side.
+
+   NOTE: This block is new. The original file had no rules for small
+   screens.
+   ================================================================= */
+@media (max-width: 768px) {
+
+  /* Less empty space around the page content. */
+  .experience-section {
+    padding: 2rem 1rem;
+  }
+
+  /* A slightly smaller main title. */
+  .experience-section h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  /* The card title and its badge may wrap onto two lines. */
+  .card-header {
+    flex-wrap: wrap;
+    gap: 0.5rem;                  /* space between the title and the badge when they wrap */
+  }
+
+  /* Cards get a little less inner space. */
+  .card {
+    padding: 1.2rem;
+  }
 }

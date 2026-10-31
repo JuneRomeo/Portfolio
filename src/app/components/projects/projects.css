@@ -1,51 +1,311 @@
-.projects-section {
-  padding: 3rem 2rem;
-  max-width: 1100px;
-  margin: 0 auto;
+/* #################################################################
+   HOW TO READ THIS FILE (start here)
+   #################################################################
+
+   This file controls how your Projects page LOOKS: colors, sizes,
+   spacing, backgrounds and shadows. It does not change any words on
+   the page. Those live in the page's HTML file.
+
+   The page is one wide column made of a title and a grid of cards.
+   From top to bottom:
+
+     [ TITLE ]      The big centered "Projects" heading.
+     [ GRID ]       The area that holds all the project cards,
+                    arranged in rows and columns.
+     [ CARD ]       One project, with a name, a short description
+                    and a row of small technology labels (badges).
+
+   WHAT "TECH STACK" MEANS
+   In this file, the "tech stack" is the small row of labels at the
+   bottom of a project card. Each label names a tool or language you
+   used for that project (for example Python or Arduino).
+
+   HOW THIS FILE IS ORGANIZED (use Ctrl+F and search the number)
+     0. Color palette         all colors, defined once
+     1. Background            the faint dot grid behind the whole page
+     2. Page layout           the wide column and the main title
+     3. Project grid          how the cards are arranged
+     4. Cards                 the white boxes and their hover effect
+     5. Inside a card         project name, description, tech labels
+     6. Phones and tablets    changes for smaller screens
+
+   QUICK GLOSSARY
+     "rem"          a size unit. 1rem is about the size of one letter
+                    of normal text. 2rem is twice that.
+     "px"           a pixel, one tiny dot on the screen.
+     "%"            a share of the parent's size (100% = full width).
+     "gradient"     a smooth fade from one color to another.
+     "grid"         a layout mode that places items in rows and
+                    columns, like a table.
+     "flex"         a layout mode that places items in a row or column.
+     "gap"          empty space BETWEEN items inside a grid or flex.
+     "padding"      empty space INSIDE a box, around its content.
+     "margin"       empty space OUTSIDE a box, pushing others away.
+     "border-radius" rounds the corners (8px = slightly rounded).
+     "box-shadow"   a soft shadow under a box, to make it look raised.
+     "badge"        a small colored label, like a tag, on a card.
+     "class"        a name tag, like .project-card, that connects a
+                    rule in this file to an element in the HTML file.
+   ################################################################# */
+
+
+/* =================================================================
+   0. COLOR PALETTE
+   -----------------------------------------------------------------
+   This page uses the SAME palette as the Home and Experience pages:
+   light brown, cream white, white and orange. Each color is saved
+   here ONCE under a nickname such as --orange. The rest of the file
+   uses the nickname instead of the color code, so changing a color
+   here changes it everywhere.
+
+   Example: change --orange from #ff5722 to another code and every
+   project name updates at once.
+
+   NOTE: ":host" is used because Angular keeps each component's CSS
+   private. If the colors do not apply, change ":host" to ":root".
+
+   NOTE: In the old version of this file, the project names were
+   BLUE (#007bff). Blue is not part of the site's palette, so they
+   are now orange to match the other pages. To go back to a different
+   color, change the "color" line in section 5 (".project-card h3").
+
+   BACKGROUND DECORATION (extra detail that makes the page less flat):
+     - a faint dot grid across the whole page, the same one the Home
+       and Experience pages use (see section 1)
+   ================================================================= */
+:host {
+  /* ---- Orange (the accent color) ---- */
+  --orange: #ff5722;          /* main bright orange: the project names */
+
+  /* ---- Background colors ---- */
+  --light-brown: #f3e6d6;     /* light brown: top of the page and the tech labels */
+  --tan: #ead9c3;             /* soft tan: bottom of the page */
+  --white: #ffffff;           /* pure white: card background */
+
+  /* ---- Text colors (dark browns so text is easy to read) ---- */
+  --text-dark: #3e2723;       /* darkest brown: the main "Projects" title */
+  --text-mid: #5d4037;        /* medium brown: text on the tech labels */
+  --text-soft: #6d4c41;       /* softer brown: project descriptions */
+
+  /* ---- Extras ---- */
+  --line: #d7c3a8;            /* thin outline around the cards and the tech labels */
+  --dot: rgba(62, 39, 35, 0.10);           /* the dot grid color: brown at only 10% strength, so it is faint */
+  --shadow: rgba(62, 39, 35, 0.04);        /* very faint brown shadow on a resting card */
+  --shadow-hover: rgba(62, 39, 35, 0.12);  /* stronger brown shadow when a card is hovered */
 }
+
+
+/* =================================================================
+   1. BACKGROUND (the faint dot grid behind the page)
+   -----------------------------------------------------------------
+   This is the same decoration the Home and Experience pages use: a
+   faint grid of small dots over a soft color fade. It is drawn on
+   ":host", which is the full-width box around this whole page, so
+   the dots cover the entire screen and not just the column in the
+   middle.
+
+   The background has TWO layers stacked on top of each other:
+     1) a faint dot grid on top
+     2) a soft color fade underneath: light brown at the top, tan
+        at the bottom
+
+   The white cards sit on top of the dots, so the dots only show in
+   the gaps around and between the cards.
+
+   HOW TO CHANGE THE DOTS
+     - Bigger or smaller dots: change "1.5px" in the rule below.
+       A larger number gives bigger dots.
+     - Dots closer together or farther apart: change "28px" in the
+       rule below. A smaller number packs the dots tighter.
+     - Dots easier or harder to see: change the "0.10" in --dot in
+       section 0. Closer to 0 is fainter, closer to 1 is stronger.
+     - No dots at all: delete the first line of the "background"
+       (the one that starts with "radial-gradient").
+
+   THE PAGE HEIGHT (why "min-height" is used below)
+   Without it, the background would stop right under the last card
+   and the plain page color would show underneath. "min-height" makes
+   the background reach at least the bottom of the screen, even when
+   the page has little content.
+     - 100vh      = the full height of the screen
+     - 72px       = the height of the navbar at the top, which is
+                    subtracted so the page does not scroll for no reason
+   If you change the navbar height, change the 72px to match.
+
+   NOTE: If you change the palette's ":host" to ":root" (see the note
+   in section 0), keep THIS rule on ":host". It styles the page box
+   itself.
+   ================================================================= */
+:host {
+  display: block;                 /* makes the page box a full-width block so the background can fill it */
+  min-height: calc(100vh - 72px); /* at least the full screen height, minus the 72px navbar */
+  background:
+    /* LAYER 1 (top): the dot grid.
+       "1.5px" = the size of each dot. "28px 28px" = the dot is
+       repeated every 28 pixels across and down, which forms the grid. */
+    radial-gradient(var(--dot) 1.5px, transparent 1.5px) 0 0 / 28px 28px,
+
+    /* LAYER 2 (underneath): the soft fade from light brown (top)
+       to tan (bottom). */
+    linear-gradient(to bottom, var(--light-brown), var(--tan));
+}
+
+
+/* =================================================================
+   2. PAGE LAYOUT (the wide column and the main title)
+   -----------------------------------------------------------------
+   The whole page content sits in one column in the middle of the
+   screen, never wider than 1100px. This is wider than the Experience
+   page (900px) because the cards sit side by side.
+   ================================================================= */
+
+/* ".projects-section" is the box around everything on this page. */
+.projects-section {
+  padding: 3rem 2rem;             /* inner space: 3rem top and bottom, 2rem left and right */
+  max-width: 1100px;              /* stops the content from stretching too wide */
+  margin: 0 auto;                 /* "auto" on the sides centers the column on the screen */
+}
+
+/* The big title at the top: "Projects". */
 .projects-section h2 {
   text-align: center;
   font-size: 2.5rem;
-  margin-bottom: 2rem;
-  color: #111;
+  margin-bottom: 2rem;            /* space between the title and the first row of cards */
+  color: var(--text-dark);
 }
+
+
+/* =================================================================
+   3. PROJECT GRID (how the cards are arranged)
+   -----------------------------------------------------------------
+   The grid automatically fits as many cards per row as the screen
+   allows (each at least 300px wide) and wraps the rest onto the next
+   row. A wide screen may show three cards per row, a tablet two and
+   a phone one.
+
+        +--------+  +--------+  +--------+
+        |  card  |  |  card  |  |  card  |
+        +--------+  +--------+  +--------+
+        +--------+  +--------+
+        |  card  |  |  card  |
+        +--------+  +--------+
+   ================================================================= */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));  /* as many columns as fit, each at least 300px wide */
+  gap: 1.5rem;                    /* space between the cards */
 }
+
+
+/* =================================================================
+   4. CARDS (the white boxes)
+   -----------------------------------------------------------------
+   Each project is shown as a white card with a thin outline and a
+   very soft shadow. A card looks like this:
+
+        +-----------------------------------------------+
+        | Project name                                  |
+        | Short description of the project, which can   |
+        | run over a few lines.                         |
+        |                                               |
+        | [ Python ] [ Arduino ] [ Angular ]            |
+        +-----------------------------------------------+
+   ================================================================= */
+
+/* One card. */
 .project-card {
-  background: #fff;
-  border: 1px solid #eaeaea;
-  border-radius: 8px;
-  padding: 1.5rem;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-  transition: transform 0.2s, box-shadow 0.2s;
+  background: var(--white);
+  border: 1px solid var(--line);          /* thin light outline around the card */
+  border-radius: 8px;                     /* slightly rounded corners */
+  padding: 1.5rem;                        /* inner space between the card edge and its content */
+  box-shadow: 0 4px 6px var(--shadow);    /* very soft shadow so the card looks slightly raised */
+  transition: transform 0.2s, box-shadow 0.2s;  /* makes the hover change smooth, not sudden */
 }
+
+/* What the card does when the mouse is on top of it. */
 .project-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+  transform: translateY(-4px);                 /* lifts up by 4 pixels, a bit more than on the Experience page */
+  box-shadow: 0 6px 12px var(--shadow-hover);  /* the shadow gets stronger */
 }
+
+
+/* =================================================================
+   5. INSIDE A CARD (name, description, tech labels)
+   -----------------------------------------------------------------
+   From top to bottom: the project name, a short description, and a
+   row of small labels naming the technologies used (the "tech
+   stack").
+   ================================================================= */
+
+/* The project name. */
 .project-card h3 {
-  margin-top: 0;
-  color: #007bff;
+  margin-top: 0;                  /* removes the default extra space above the name */
+  color: var(--orange);           /* orange (was blue in the old version) */
 }
+
+/* The short description of the project. */
 .project-card p {
-  color: #555;
+  color: var(--text-soft);
   font-size: 0.95rem;
-  line-height: 1.5;
+  line-height: 1.5;               /* breathing room between lines of text */
 }
+
+/* ".tech-stack" is the row that holds the small labels at the bottom
+   of a card. */
 .tech-stack {
-  margin-top: 1rem;
+  margin-top: 1rem;               /* space between the description and the labels */
   display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
+  gap: 0.5rem;                    /* space between one label and the next */
+  flex-wrap: wrap;                /* if the labels do not fit in one row, they continue on a new row */
 }
+
+/* One small label, such as "Python". Light brown with brown text and
+   a thin outline, so it stays quiet next to the orange project name. */
 .badge {
-  background: #e9ecef;
-  color: #495057;
-  padding: 0.25rem 0.5rem;
+  background: var(--light-brown);
+  color: var(--text-mid);
+  border: 1px solid var(--line);  /* thin outline so the label stands out on the white card */
+  padding: 0.25rem 0.5rem;        /* inner space: makes the label bigger than its text */
   font-size: 0.75rem;
   border-radius: 4px;
-  font-weight: 500;
+  font-weight: 500;               /* medium boldness */
+}
+
+
+/* =================================================================
+   6. PHONES AND TABLETS (RESPONSIVE RULES)
+   -----------------------------------------------------------------
+   Everything inside the block below only applies when the screen is
+   768 pixels wide or narrower (phones and small tablets). On a wider
+   screen, these rules are ignored.
+
+   The main idea: on a small screen there is less room, so the
+   spacing is reduced and the cards are forced into a single column.
+   (Without this, the 300px minimum card width plus the page spacing
+   can be wider than a small phone screen.)
+
+   NOTE: This block is new. The original file had no rules for small
+   screens.
+   ================================================================= */
+@media (max-width: 768px) {
+
+  /* Less empty space around the page content. */
+  .projects-section {
+    padding: 2rem 1rem;
+  }
+
+  /* A slightly smaller main title. */
+  .projects-section h2 {
+    font-size: 2rem;
+  }
+
+  /* One card per row, each taking the full width. */
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Cards get a little less inner space. */
+  .project-card {
+    padding: 1.2rem;
+  }
 }

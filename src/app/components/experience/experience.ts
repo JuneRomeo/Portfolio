@@ -30,13 +30,33 @@ export class ExperienceComponent {
       issuer: 'EF SET',
       date: '2026',
       description: 'Demonstrated advanced proficiency in English language skills, including grammar, vocabulary, and communication.'
+    },
+    {
+      title: 'Introduction to Cybersecurity',
+      issuer: 'Cisco Networking Academy',
+      date: '2026',
+      description: 'Gained core understanding of cybersecurity principles, common online threats, data privacy, and foundational methods to protect networks and personal data.'
+    },
+    {
+      title: 'Security and Connectivity Support',
+      issuer: 'Cisco Networking Academy',
+      date: '2026',
+      description: 'Acquired foundational knowledge and skills in network security, endpoint configuration, device connectivity, and troubleshooting.'
     }
+
   ];
 
 
 
 
   seminars = [
+
+    {
+      title: 'Software Design and Development Thinking',
+      date: '2026',
+      issuer: 'DICT Davao del Sur',
+      description: ''
+    },
     {
       title: 'From Traditional to Agile: Evolving Project Management Practices',
       date: '2025',

@@ -1,210 +1,504 @@
-/* Contact Section Base Layout */
-.contact-section {
-  background-color: #fafafa;
-  padding: 6rem 6%;
-  border-top: 1px solid #eaeaea;
+/* #################################################################
+   HOW TO READ THIS FILE (start here)
+   #################################################################
+
+   This file controls how your Contact page LOOKS: colors, sizes,
+   spacing, backgrounds and shadows. It does not change any words on
+   the page. Those live in the page's HTML file.
+
+   The page is one band split into two columns. From left to right:
+
+        +-----------------------------------------------+
+        |  Contact                                      |
+        |  -----                                        |
+        |                                               |
+        |  LEFT COLUMN             RIGHT COLUMN         |
+        |  ( round photo )         +----------------+   |
+        |  short tagline           | Name           |   |
+        |  (o) (o) (o)             | Email          |   |
+        |  social icons            | Message        |   |
+        |                          | [ Send ]       |   |
+        |                          +----------------+   |
+        +-----------------------------------------------+
+
+     [ HEADER ]     The title "Contact" with a short orange line.
+     [ LEFT ]       Your round photo, a short tagline and a row of
+                    round social media buttons.
+     [ RIGHT ]      A white card holding the contact form: input
+                    boxes, messages for mistakes, and a send button.
+
+   WHAT "VALIDATION" MEANS
+   Validation is the form checking itself. For example, it notices
+   when the email box is empty or the email is not written correctly,
+   and then shows a red outline and a short error message. Angular
+   marks such boxes with special class names ("ng-invalid" and
+   "ng-touched") that this file uses to turn them red.
+
+   HOW THIS FILE IS ORGANIZED (use Ctrl+F and search the number)
+     0. Color palette         all colors, defined once
+     1. Background            the faint dot grid behind the whole page
+     2. Page layout           the section and its header
+     3. Two columns           how the left and right sides are placed
+     4. Left column           photo, tagline and social icons
+     5. Form card             the white card, labels and input boxes
+     6. Errors and alerts     red outlines, error text, success box
+     7. Send button           the orange button and its states
+     8. Phones and tablets    changes for smaller screens
+
+   QUICK GLOSSARY
+     "rem"          a size unit. 1rem is about the size of one letter
+                    of normal text. 2rem is twice that.
+     "px"           a pixel, one tiny dot on the screen.
+     "%"            a share of the parent's size (50% = half).
+     "fr"           a "fraction" of the free space in a grid. In
+                    "1fr 1.5fr" the right column is 1.5 times as
+                    wide as the left one.
+     "gradient"     a smooth fade from one color to another.
+     "grid"         a layout mode that places items in rows and
+                    columns, like a table.
+     "flex"         a layout mode that places items in a row or column.
+     "gap"          empty space BETWEEN items inside a grid or flex.
+     "padding"      empty space INSIDE a box, around its content.
+     "margin"       empty space OUTSIDE a box, pushing others away.
+     "border-radius" rounds the corners (50% makes a perfect circle).
+     "box-shadow"   a soft shadow under a box, to make it look raised.
+     "hover"        the moment the mouse pointer is on top of something.
+     "focus"        the moment you click into an input box to type.
+     "disabled"     a button that cannot be clicked right now (for
+                    example, while the form is still incomplete).
+     "class"        a name tag, like .contact-left, that connects a
+                    rule in this file to an element in the HTML file.
+   ################################################################# */
+
+
+/* =================================================================
+   0. COLOR PALETTE
+   -----------------------------------------------------------------
+   This page uses the SAME palette as the Home, Experience and
+   Projects pages: light brown, cream white, white and orange. Each
+   color is saved here ONCE under a nickname such as --orange. The
+   rest of the file uses the nickname instead of the color code, so
+   changing a color here changes it everywhere.
+
+   Example: change --orange from #ff5722 to another code and the
+   header line, the focus outline, the hover icons and the send
+   button all update at once.
+
+   NOTE: ":host" is used because Angular keeps each component's CSS
+   private. If the colors do not apply, change ":host" to ":root".
+
+   NOTE: The red and green colors for errors and success messages are
+   kept on purpose. People expect red to mean "mistake" and green to
+   mean "done", so they are not changed to brown.
+
+   BACKGROUND DECORATION (extra detail that makes the page less flat):
+     - a faint dot grid across the whole page, the same one the other
+       pages use (see section 1)
+   ================================================================= */
+:host {
+  /* ---- Orange (the accent color) ---- */
+  --orange: #ff5722;          /* main bright orange: header line, focus outline, send button, icon hover */
+  --orange-glow: rgba(255, 87, 34, 0.3);   /* orange at 30% strength: the soft glow under the button and hovered icons */
+
+  /* ---- Background colors ---- */
+  --cream: #fbf3e8;           /* cream white: the empty input boxes */
+  --light-brown: #f3e6d6;     /* light brown: top of the page */
+  --tan: #ead9c3;             /* soft tan: bottom of the page and the photo while it loads */
+  --white: #ffffff;           /* pure white: form card, icon buttons, photo border */
+
+  /* ---- Text colors (dark browns so text is easy to read) ---- */
+  --text-dark: #3e2723;       /* darkest brown: the title, labels and icons */
+  --text-soft: #6d4c41;       /* softer brown: the tagline under your photo */
+
+  /* ---- Status colors (errors and success) ---- */
+  --error: #e53935;           /* red: error text and the red outline on a wrong input */
+  --error-bg: #fff8f8;        /* very pale red: background of a wrong input box */
+  --error-alert-text: #c62828;   /* darker red: text inside the error alert box */
+  --error-alert-bg: #ffebee;     /* pale red: background of the error alert box */
+  --success-text: #2e7d32;    /* green: text inside the success alert box */
+  --success-bg: #e8f5e9;      /* pale green: background of the success alert box */
+
+  /* ---- Extras ---- */
+  --line: #d7c3a8;            /* thin outline around the form card, input boxes and the disabled button */
+  --dot: rgba(62, 39, 35, 0.10);           /* the dot grid color: brown at only 10% strength, so it is faint */
+  --shadow: rgba(62, 39, 35, 0.08);        /* soft brown shadow under the card, photo and icons */
 }
 
+
+/* =================================================================
+   1. BACKGROUND (the faint dot grid behind the page)
+   -----------------------------------------------------------------
+   This is the same decoration the other pages use: a faint grid of
+   small dots over a soft color fade. It is drawn on ":host", which
+   is the full-width box around this whole page, so the dots cover
+   the entire screen.
+
+   The background has TWO layers stacked on top of each other:
+     1) a faint dot grid on top
+     2) a soft color fade underneath: light brown at the top, tan
+        at the bottom
+
+   The white form card sits on top of the dots, so the dots only show
+   in the empty space around it.
+
+   NOTE: In the old version, the section had a flat grey background
+   (#fafafa) and a thin line along its top edge. Both were removed so
+   this page matches the others. The color change and the dots now do
+   the job of the old line.
+
+   HOW TO CHANGE THE DOTS
+     - Bigger or smaller dots: change "1.5px" in the rule below.
+       A larger number gives bigger dots.
+     - Dots closer together or farther apart: change "28px" in the
+       rule below. A smaller number packs the dots tighter.
+     - Dots easier or harder to see: change the "0.10" in --dot in
+       section 0. Closer to 0 is fainter, closer to 1 is stronger.
+     - No dots at all: delete the first line of the "background"
+       (the one that starts with "radial-gradient").
+
+   THE PAGE HEIGHT (why "min-height" is used below)
+   Without it, the background would stop right under the last element
+   and the plain page color would show underneath. "min-height" makes
+   the background reach at least the bottom of the screen, even when
+   the page has little content.
+     - 100vh      = the full height of the screen
+     - 72px       = the height of the navbar at the top, which is
+                    subtracted so the page does not scroll for no reason
+   If you change the navbar height, change the 72px to match.
+
+   NOTE: If you change the palette's ":host" to ":root" (see the note
+   in section 0), keep THIS rule on ":host". It styles the page box
+   itself.
+   ================================================================= */
+:host {
+  display: block;                 /* makes the page box a full-width block so the background can fill it */
+  min-height: calc(100vh - 72px); /* at least the full screen height, minus the 72px navbar */
+  background:
+    /* LAYER 1 (top): the dot grid.
+       "1.5px" = the size of each dot. "28px 28px" = the dot is
+       repeated every 28 pixels across and down, which forms the grid. */
+    radial-gradient(var(--dot) 1.5px, transparent 1.5px) 0 0 / 28px 28px,
+
+    /* LAYER 2 (underneath): the soft fade from light brown (top)
+       to tan (bottom). */
+    linear-gradient(to bottom, var(--light-brown), var(--tan));
+}
+
+
+/* =================================================================
+   2. PAGE LAYOUT (the section and its header)
+   -----------------------------------------------------------------
+   The whole page content sits inside one band with generous space
+   above and below.
+   ================================================================= */
+
+/* ".contact-section" is the box around everything on this page.
+   It has no background of its own: the dot grid from section 1 shows
+   through. */
+.contact-section {
+  padding: 6rem 6%;               /* inner space: 6rem top and bottom, 6% on the left and right */
+}
+
+/* The big title: "Contact". */
 .section-header h2 {
   font-size: 2.5rem;
-  font-weight: 700;
-  color: #111;
+  font-weight: 700;               /* bold */
+  color: var(--text-dark);
 }
 
+/* The short orange line under the title. */
 .role-divider {
   width: 150px;
-  height: 3px;
-  background-color: #ff5722;
+  height: 3px;                    /* thin, like an underline */
+  background-color: var(--orange);
   margin: 0.8rem 0;
 }
 
-/* Two-Column Grid Container */
+
+/* =================================================================
+   3. TWO COLUMNS (how the left and right sides are placed)
+   -----------------------------------------------------------------
+   The container is a grid with two columns. The right column (the
+   form) is 1.5 times as wide as the left one (photo and icons).
+   ================================================================= */
 .contact-container {
   display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 4rem;
-  margin-top: 2.5rem;
-  align-items: flex-start; /* Changed from center to align both columns to the top */
+  grid-template-columns: 1fr 1.5fr;   /* left column : right column = 1 : 1.5 */
+  gap: 4rem;                          /* space between the two columns */
+  margin-top: 2.5rem;                 /* space between the title and the columns */
+  align-items: flex-start;            /* both columns start at the top (this was "center" before) */
 }
 
-/* Left Column Styling */
+
+/* =================================================================
+   4. LEFT COLUMN (photo, tagline and social icons)
+   -----------------------------------------------------------------
+   Stacked from top to bottom: the round photo, a short tagline, and
+   a row of round social media buttons.
+   ================================================================= */
+
+/* The left column itself: stacks its items top to bottom. */
 .contact-left {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 1.2rem;
+  align-items: flex-start;        /* items line up on the left edge */
+  gap: 1.2rem;                    /* space between photo, tagline and icons */
 }
 
+/* The round frame that holds your photo, with a thick white border. */
 .contact-profile-circle {
   width: 180px;
   height: 180px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 4px solid #ffffff;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-  background-color: #f0f0f0;
+  border-radius: 50%;             /* makes the frame a circle */
+  overflow: hidden;               /* hides the parts of the photo outside the circle */
+  border: 4px solid var(--white); /* the thick white border */
+  box-shadow: 0 10px 25px var(--shadow);  /* soft brown shadow under the photo */
+  background-color: var(--tan);   /* shown only while the photo is loading */
 }
 
+/* The photo itself. */
 .contact-profile-circle img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top center;
+  height: 100%;                   /* fills the whole circle */
+  object-fit: cover;              /* fills the circle without stretching the photo (extra parts are cropped) */
+  object-position: top center;    /* when cropping, keeps the top of the photo so your face stays visible */
 }
 
+/* The short line of text under the photo. */
 .contact-tagline {
   font-size: 1.05rem;
-  color: #666;
-  line-height: 1.5;
-  max-width: 320px;
+  color: var(--text-soft);
+  line-height: 1.5;               /* breathing room between lines of text */
+  max-width: 320px;               /* keeps the line from stretching too wide */
 }
 
-/* Social Icon Buttons Row */
+/* ".social-icons-row" is the row that holds the round icon buttons. */
 .social-icons-row {
   display: flex;
-  gap: 1rem;
+  gap: 1rem;                      /* space between one icon and the next */
   margin-top: 0.5rem;
 }
 
+/* One round social icon button (white circle with a dark icon). */
 .social-icon {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center;        /* centers the icon inside the circle */
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background-color: #ffffff;
-  color: #333;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
-  transition: all 0.2s ease;
-  text-decoration: none;
+  background-color: var(--white);
+  color: var(--text-dark);
+  box-shadow: 0 4px 10px var(--shadow);
+  transition: all 0.2s ease;      /* makes the hover change smooth, not sudden */
+  text-decoration: none;          /* removes the underline a link would normally have */
 }
 
+/* What an icon does when the mouse is on top of it:
+   it turns orange with a white icon and lifts up. */
 .social-icon:hover {
-  background-color: #ff5722;
-  color: #ffffff;
-  transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(255, 87, 34, 0.3);
+  background-color: var(--orange);
+  color: var(--white);
+  transform: translateY(-3px);              /* lifts up by 3 pixels */
+  box-shadow: 0 6px 15px var(--orange-glow);  /* soft orange glow under the icon */
 }
 
-/* Right Column Form Card Styling */
+
+/* =================================================================
+   5. FORM CARD (the white card, labels and input boxes)
+   -----------------------------------------------------------------
+   The right column is a white card holding the form. Each field is
+   a "form group": a small label with an input box under it.
+
+        +-----------------------------------+
+        | Name                              |
+        | [ input box                     ] |
+        | Email                             |
+        | [ input box                     ] |
+        | Message                           |
+        | [ bigger text box               ] |
+        | [ Send ]                          |
+        +-----------------------------------+
+   ================================================================= */
+
+/* The white card around the whole form. */
 .contact-right {
-  background: #ffffff;
-  padding: 2.5rem;
-  border-radius: 12px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
-  border: 1px solid #eee;
-  margin-top: -100px; /* Add this line to raise the box */
+  background: var(--white);
+  padding: 2.5rem;                        /* inner space between the card edge and the form */
+  border-radius: 12px;                    /* rounded corners */
+  box-shadow: 0 8px 25px var(--shadow);   /* soft shadow so the card looks raised */
+  border: 1px solid var(--line);          /* thin light outline around the card */
+  margin-top: -100px;                     /* pulls the card UP by 100px so it lines up higher on the page */
 }
 
+/* The form itself: stacks the fields and the button top to bottom. */
 .contact-form {
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 1.2rem;                    /* space between one field and the next */
 }
 
+/* One field: a label with its input box under it. */
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 0.4rem;                    /* small space between the label and its box */
 }
 
+/* The label above each box ("Name", "Email", "Message"). */
 .form-group label {
   font-size: 0.9rem;
-  font-weight: 600;
-  color: #333;
+  font-weight: 600;               /* semi-bold */
+  color: var(--text-dark);
 }
 
+/* The typing boxes: one-line inputs and the bigger message box. */
 .form-group input,
 .form-group textarea {
-  padding: 0.8rem 1rem;
-  border: 1px solid #ddd;
+  padding: 0.8rem 1rem;           /* inner space so the typed text does not touch the edge */
+  border: 1px solid var(--line);  /* thin light outline */
   border-radius: 6px;
   font-size: 0.95rem;
-  font-family: inherit;
-  transition: border-color 0.2s;
-  background-color: #fdfdfd;
+  font-family: inherit;           /* uses the same font as the rest of the page */
+  transition: border-color 0.2s; /* makes the outline color change smooth */
+  background-color: var(--cream); /* soft cream while empty */
 }
 
+/* What a box looks like while you are typing in it:
+   no default browser outline, an orange outline instead, and a
+   white background. */
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #ff5722;
-  background-color: #fff;
+  border-color: var(--orange);
+  background-color: var(--white);
 }
 
-/* Validation Error Highlights & Messages */
+
+/* =================================================================
+   6. ERRORS AND ALERTS (validation and messages)
+   -----------------------------------------------------------------
+   Red is used for mistakes and green for success, so people
+   understand them at a glance.
+   ================================================================= */
+
+/* A box with a mistake in it. It only turns red AFTER you have
+   clicked in and out of it ("ng-touched") and its content is
+   wrong ("ng-invalid"), so empty boxes do not start out red. */
 .form-group input.ng-invalid.ng-touched,
 .form-group textarea.ng-invalid.ng-touched {
-  border-color: #e53935;
-  background-color: #fff8f8;
+  border-color: var(--error);
+  background-color: var(--error-bg);      /* very pale red */
 }
 
+/* The small red text under a wrong box ("Email is required"). */
 .error-message {
   font-size: 0.8rem;
-  color: #e53935;
+  color: var(--error);
   font-weight: 500;
   margin-top: 0.2rem;
 }
 
-/* Alert States */
+/* The green box shown after the message was sent successfully. */
 .success-alert {
   padding: 0.75rem 1rem;
-  background-color: #e8f5e9;
-  color: #2e7d32;
+  background-color: var(--success-bg);
+  color: var(--success-text);
   border-radius: 6px;
   font-size: 0.9rem;
   font-weight: 500;
 }
 
+/* The red box shown when sending the message failed. */
 .error-alert {
   padding: 0.75rem 1rem;
-  background-color: #ffebee;
-  color: #c62828;
+  background-color: var(--error-alert-bg);
+  color: var(--error-alert-text);
   border-radius: 6px;
   font-size: 0.9rem;
   font-weight: 500;
 }
 
-/* Action Button Styles */
+
+/* =================================================================
+   7. SEND BUTTON (the orange button and its states)
+   -----------------------------------------------------------------
+   The button has three states:
+     - normal:    orange with white text and a soft orange glow
+     - hover:     slightly see-through, so it looks a little lighter
+     - disabled:  greyed out and not clickable (for example while
+                  the form is incomplete)
+   ================================================================= */
+
+/* The normal button: orange with white text. */
 .btn-orange {
-  background-color: #ff5722;
-  color: #fff;
-  border: none;
-  padding: 0.75rem 2.2rem;
+  background-color: var(--orange);
+  color: var(--white);
+  border: none;                   /* no outline around the button */
+  padding: 0.75rem 2.2rem;        /* inner space: makes the button bigger than its text */
   font-size: 1rem;
   font-weight: 500;
-  border-radius: 6px;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(255, 87, 34, 0.3);
-  transition: opacity 0.2s;
-  align-self: flex-start;
+  border-radius: 6px;             /* slightly rounded corners */
+  cursor: pointer;                /* the mouse turns into a pointing hand */
+  box-shadow: 0 4px 12px var(--orange-glow);  /* soft orange glow under the button */
+  transition: opacity 0.2s;       /* makes the hover change smooth, not sudden */
+  align-self: flex-start;         /* keeps the button on the left instead of stretching across the card */
 }
 
+/* What the button does when the mouse is on top of it.
+   ":not(:disabled)" means this only happens if the button is
+   clickable. */
 .btn-orange:hover:not(:disabled) {
-  opacity: 0.88;
+  opacity: 0.88;                  /* 88% visible, so it looks slightly lighter */
 }
 
+/* The button when it cannot be clicked: muted brown-grey, no glow,
+   and the "not allowed" cursor. */
 .btn-orange:disabled {
-  background-color: #ccc;
+  background-color: var(--line);
   cursor: not-allowed;
   box-shadow: none;
   opacity: 0.7;
 }
 
-/* Responsive Media Query for Tablets and Mobile */
+
+/* =================================================================
+   8. PHONES AND TABLETS (RESPONSIVE RULES)
+   -----------------------------------------------------------------
+   Everything inside the block below only applies when the screen is
+   900 pixels wide or narrower (tablets and phones). On a wider
+   screen, these rules are ignored.
+
+   The main idea: on a small screen there is no room for two columns,
+   so the left side is stacked ABOVE the form and centered.
+   ================================================================= */
 @media (max-width: 900px) {
+
+  /* The two columns become one column, stacked top to bottom. */
   .contact-container {
     grid-template-columns: 1fr;
     gap: 2.5rem;
     text-align: center;
   }
+
+  /* The photo, tagline and icons are centered. */
   .contact-left {
     align-items: center;
   }
+
   .contact-tagline {
     text-align: center;
   }
+
+  /* NEW: the form card is no longer pulled up by 100px. On a small
+     screen it sits BELOW the left column, and the pull-up would make
+     it overlap the icons. */
+  .contact-right {
+    margin-top: 0;
+    padding: 1.5rem;              /* a little less inner space on small screens */
+  }
+
+  /* The send button stretches across the full width of the card. */
   .btn-orange {
     width: 100%;
   }
