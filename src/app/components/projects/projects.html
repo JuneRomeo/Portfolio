@@ -1,12 +1,37 @@
+
 <section class="projects-section">
-  <h2>Featured Projects</h2>
+  <div class="section-header">
+    <h2>Featured Projects</h2>
+    <div class="role-divider"></div>
+    <p>Some of the projects I've built and worked on.</p>
+  </div>
+
   <div class="projects-grid">
     <div class="project-card" *ngFor="let project of projects">
-      <h3>{{ project.title }}</h3>
-      <p>{{ project.description }}</p>
-      <div class="tech-stack">
-        <span *ngFor="let t of project.tech" class="badge">{{ t }}</span>
+
+      <div class="project-image">
+        <img [src]="project.imageName" [alt]="project.title">
       </div>
+
+      <div class="project-text">
+        <h3>{{ project.title }}</h3>
+        <p>{{ project.description }}</p>
+
+        <div class="tech-stack">
+          <span class="badge" *ngFor="let t of project.tech">
+            {{ t }}
+          </span>
+        </div>
+
+        <a
+          class="project-link"
+          [href]="project.link"
+          target="_blank"
+          rel="noopener noreferrer">
+          View Project ↗
+        </a>
+      </div>
+
     </div>
   </div>
 </section>

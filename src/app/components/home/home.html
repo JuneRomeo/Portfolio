@@ -1,14 +1,17 @@
-<!-- Hero Section (Your Original Layout) -->
+
 <section class="hero-section">
   <div class="hero-text-content">
     <span class="greeting">Hello, I'm</span>
     <h1>{{ name }}</h1>
+
     <div class="role-divider"></div>
-    
+
     <p>{{ bio }}</p>
-    
+
     <div class="hero-buttons">
-      <button class="btn-orange" onclick="document.getElementById('about').scrollIntoView({ behavior: 'smooth' });">About Me</button>
+      <button class="btn-orange" onclick="document.getElementById('about').scrollIntoView({ behavior: 'smooth' });">
+        About Me
+      </button>
     </div>
   </div>
 
@@ -22,30 +25,22 @@
   </div>
 </section>
 
-<!-- About Me Section (Scrollable Below) -->
 <section id="about" class="content-section about-section">
   <div class="section-header">
     <h2>About Me</h2>
     <div class="role-divider"></div>
   </div>
-  <div class="about-content">
 
+  <div class="about-content">
     <p>
-      I am a aspiring software developer specializing in building modern, scalable, and responsive web applications. 
-      With a strong foundation in frontend engineering, I enjoy turning complex problems into intuitive, elegant, and user-centered digital experiences.
+      I am an aspiring software developer with an interest in building modern,
+      scalable, and responsive web applications. With a foundation in frontend
+      development, I enjoy solving problems and creating intuitive,
+      user-centered digital experiences.
     </p>
   </div>
 </section>
 
-
-
-
-
-
-
-
-
-<!-- Education Section -->
 <section id="education" class="content-section education-section">
   <div class="section-header">
     <h2>Education</h2>
@@ -53,29 +48,28 @@
   </div>
 
   <div class="education-container">
-    <!-- Card 1: College -->
     <div class="edu-card">
       <div class="edu-text">
         <h2>Bachelor of Science in Computer Engineering</h2>
         <span class="edu-school">De La Salle Araneta University</span>
-        <span class="edu-year">2022 &ndash; 2026</span>
+        <span class="edu-year">2022 – 2026</span>
       </div>
+
       <div class="edu-image-container">
-        <img src="dlsau.png" alt="DLSAU Logo" class="edu-logo">
+        <img src="dlsau.png" alt="De La Salle Araneta University Logo" class="edu-logo">
       </div>
     </div>
 
-    <!-- Card 2: Senior High School -->
     <div class="edu-card">
       <div class="edu-text">
-        <h2>Senior High School &mdash; Information and Communications Technology (ICT) Strand</h2>
+        <h2>Senior High School – ICT Strand</h2>
         <span class="edu-school">Informatics College Manila</span>
-        <span class="edu-year">2020 &ndash; 2021</span>
+        <span class="edu-year">2020 – 2021</span>
       </div>
+
       <div class="edu-image-container">
         <img src="informatics.jpg" alt="Informatics College Logo" class="edu-logo">
       </div>
     </div>
   </div>
-
 </section>

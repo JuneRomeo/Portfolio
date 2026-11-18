@@ -1,1 +1,76 @@
-/* You can add global styles to this file, and also import other style files */
+
+/* FONT IMPORTS */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+/* COLORS */
+:root {
+  --green: #294638;
+  --green-dark: #20382B;
+
+  --cream: #F5F6F0;
+  --sage-light: #DCE8DC;
+  --sage: #B7C9B6;
+  --gold: #D6BD67;
+  --white: #FFFFFF;
+
+  --text-dark: #26332B;
+  --text-mid: #526B58;
+  --text-soft: #68796C;
+
+  --border: #D2DDD0;
+  --shadow: rgba(38, 51, 43, 0.12);
+
+  /* FONTS */
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', Arial, sans-serif;
+}
+
+/* BASE */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: var(--cream);
+  color: var(--text-dark);
+  font-family: var(--font-body);
+}
+
+/* HEADINGS */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  color: var(--green);
+}
+
+/* LINKS */
+a {
+  color: var(--green);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--gold);
+}
+
+/* BUTTONS AND INPUTS */
+button,
+input,
+textarea,
+select {
+  font-family: var(--font-body);
+}
+
+/* IMAGES */
+img {
+  max-width: 100%;
+}
