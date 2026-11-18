@@ -9,6 +9,22 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./experience.css']
 })
 export class ExperienceComponent {
+
+  education = [
+    {
+      degree: 'Bachelor of Science in Computer Engineering',
+      school: 'De La Salle Araneta University',
+      period: '2022 – 2026',
+      image: 'dlsau.png'
+    },
+    {
+      degree: 'Senior High School – ICT Strand',
+      school: 'Informatics College Manila',
+      period: '2020 – 2021',
+      image: 'informatics.jpg'
+    }
+  ];
+
   experiences = [
     {
       role: 'Noc Intern',

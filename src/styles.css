@@ -1,31 +1,29 @@
 
 /* FONT IMPORTS */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Lato:wght@400;700;900&display=swap');
 
-/* COLORS */
+/* COLOR PALETTE */
 :root {
-  --green: #294638;
-  --green-dark: #20382B;
-
-  --cream: #F5F6F0;
-  --sage-light: #DCE8DC;
-  --sage: #B7C9B6;
-  --gold: #D6BD67;
+  --charcoal: #252525;
+  --gray-dark: #414141;
+  --taupe: #A69B8A;
+  --beige: #E9E2D8;
+  --ivory: #F7F5F0;
   --white: #FFFFFF;
 
-  --text-dark: #26332B;
-  --text-mid: #526B58;
-  --text-soft: #68796C;
+  --text-dark: #252525;
+  --text-mid: #55514B;
+  --text-soft: #777168;
 
-  --border: #D2DDD0;
-  --shadow: rgba(38, 51, 43, 0.12);
+  --border: #D8D0C5;
+  --shadow: rgba(37, 37, 37, 0.10);
 
-  /* FONTS */
-  --font-heading: 'Playfair Display', Georgia, serif;
-  --font-body: 'Inter', Arial, sans-serif;
+  /* TYPOGRAPHY */
+  --font-heading: 'DM Serif Display', Georgia, serif;
+  --font-body: 'Lato', Arial, sans-serif;
 }
 
-/* BASE */
+/* GLOBAL RESET */
 * {
   box-sizing: border-box;
 }
@@ -36,41 +34,52 @@ html {
 
 body {
   margin: 0;
-  background-color: var(--cream);
+  min-height: 100vh;
+  background-color: var(--ivory);
   color: var(--text-dark);
   font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
 }
 
 /* HEADINGS */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  color: var(--charcoal);
   font-family: var(--font-heading);
-  color: var(--green);
+  font-weight: 400;
+  line-height: 1.2;
 }
 
 /* LINKS */
 a {
-  color: var(--green);
+  color: var(--charcoal);
   text-decoration: none;
+  transition: color 0.25s ease;
 }
 
 a:hover {
-  color: var(--gold);
+  color: var(--taupe);
 }
 
 /* BUTTONS AND INPUTS */
-button,
-input,
-textarea,
-select {
+button, input, textarea, select {
   font-family: var(--font-body);
+}
+
+button {
+  cursor: pointer;
 }
 
 /* IMAGES */
 img {
+  display: block;
   max-width: 100%;
+  height: auto;
+}
+
+/* TEXT SELECTION */
+::selection {
+  background-color: var(--beige);
+  color: var(--charcoal);
 }
